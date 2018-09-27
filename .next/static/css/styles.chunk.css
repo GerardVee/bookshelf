@@ -1,0 +1,186 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script);
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%; }
+
+.flex, .row, .col {
+  display: flex; }
+
+.row {
+  flex-direction: row; }
+
+.col {
+  flex-direction: column; }
+
+.center {
+  text-align: center; }
+
+.left {
+  text-align: left; }
+
+.justify-center {
+  justify-content: center; }
+
+.align-center {
+  align-items: center; }
+
+.slightly-bold {
+  font-weight: 500; }
+
+.black {
+  color: black !important; }
+
+.bookshelf-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%; }
+
+.bookshelf-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  padding-top: 0.5em;
+  padding-bottom: 0.2em; }
+
+.bookshelf-toolbar-title {
+  font-family: "Dancing Script" !important;
+  font-weight: 800 !important; }
+  .bookshelf-toolbar-title:hover {
+    cursor: pointer; }
+
+.bookshelf-toolbar-search {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: auto;
+  border-radius: 5px;
+  margin-left: 3em; }
+  .bookshelf-toolbar-search:hover {
+    background-color: rgba(0, 0, 0, 0.03); }
+
+.bookshelf-toolbar-search-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  pointer-events: none;
+  height: 100%;
+  width: 3em; }
+
+.bookshelf-toolbar-search-root {
+  color: inherit;
+  width: 100%; }
+
+.bookshelf-toolbar-search-input {
+  padding-left: 3em !important;
+  width: 250px !important; }
+
+.bookshelf-profile-main {
+  align-self: center;
+  padding-top: 3em;
+  width: 70%; }
+
+.bookshelf-profile-main-picture {
+  border-radius: 10em;
+  width: 200px;
+  height: 200px; }
+
+.bookshelf-profile-main-username {
+  font-weight: 400 !important; }
+
+.bookshelf-profile-main-stats {
+  margin-left: 2em; }
+  .bookshelf-profile-main-stats > .col > * {
+    padding-top: 0.4em; }
+  .bookshelf-profile-main-stats > .row {
+    padding: 0.5em 0em; }
+    .bookshelf-profile-main-stats > .row > * {
+      padding: 0em 1em; }
+
+.bookshelf-profile-tabs-container {
+  display: flex;
+  align-self: center;
+  background-color: #FFFFFF;
+  margin-top: 2em;
+  padding: 0em 12em;
+  flex-grow: 1; }
+
+.bookshelf-profile-books-container {
+  display: flex;
+  align-self: center;
+  width: 70%;
+  margin-top: 3em; }
+
+.bookshelf-book-main {
+  align-self: center;
+  padding-top: 3em;
+  width: 70%; }
+
+.bookshelf-book-main-image {
+  width: 300px;
+  height: 389px; }
+
+.bookshelf-book-main-stats {
+  margin-left: 2em;
+  max-width: 60%; }
+  .bookshelf-book-main-stats > .black {
+    padding-top: 0.4em; }
+  .bookshelf-book-main-stats > .row {
+    align-self: center;
+    padding-top: 1.5em; }
+    .bookshelf-book-main-stats > .row > * {
+      padding: 0em 1.5em;
+      margin: 0em 0.6em; }
+
+.bookshelf-book-main-stats-title:hover {
+  cursor: pointer; }
+
+.bookshelf-book-main-stats-isbn {
+  padding-top: 2em; }
+
+.bookshelf-book-main-description {
+  align-self: center;
+  text-align: center;
+  color: black;
+  width: 80%;
+  padding-top: 2em;
+  padding-bottom: 2em; }
+
+.bookshelf-search-tabs-container {
+  display: flex;
+  align-self: center;
+  background-color: #FFFFFF;
+  margin-top: 2em;
+  padding: 0em 12em;
+  flex-grow: 1; }
+
+.bookshelf-search-book-results {
+  align-self: center;
+  align-items: center;
+  width: 70%;
+  margin-top: 2em; }
+
+.bookshelf-search-book-result {
+  width: 40%;
+  padding: 1em 2em;
+  border-radius: 1em; }
+  .bookshelf-search-book-result:hover {
+    background-color: #e6e6e6; }
+
+.bookshelf-search-book-result-image {
+  width: 90px;
+  height: 137px; }
+
+.bookshelf-search-book-result-info {
+  width: 300px;
+  padding-left: 2em; }
+  .bookshelf-search-book-result-info > h2 {
+    padding-bottom: 0.7em; }
+    .bookshelf-search-book-result-info > h2:hover {
+      cursor: pointer; }
+
+
+/*# sourceMappingURL=styles.chunk.css.map*/
