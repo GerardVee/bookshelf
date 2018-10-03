@@ -1,12 +1,21 @@
+import { connect } from 'react-redux';
+
 import Theme from '../theme';
 import Header from '../components/Header';
+import { login, logout } from '../ducks/actions';
 
 import '../styles/index.scss';
 
-export default () => (
+const mapStateToProps = (state) =>
+({
+    user: state,
+});
+
+export default connect(mapStateToProps)(({ user }) => (
     <div className='bookshelf-page'>
         <Theme>
-            <Header messages={ 0 } notifications={ 0 } />
+            <Header />
+            { JSON.stringify(user) }
         </Theme>
     </div>
-);
+));

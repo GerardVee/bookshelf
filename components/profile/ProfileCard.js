@@ -4,10 +4,10 @@ import Button from '@material-ui/core/Button';
 
 const base = '/';
 
-export default ({ username, profilePicture, posts, followers, following, name, book, bookId, about }) => (
+export default ({ username, profile_picture, posts, followers, following, name, book, book_id, about }) => (
     <div className='col bookshelf-profile-main'>
         <div className='row justify-center align-center'>
-            <img className='bookshelf-profile-main-picture' src={ profilePicture } />
+            <img className='bookshelf-profile-main-picture' src={ profile_picture } />
             <div className='col bookshelf-profile-main-stats'>
                 <div className='row align-center'>
                     <Typography variant='title' color='default' className='bookshelf-profile-main-username'>{ username }</Typography>
@@ -20,7 +20,7 @@ export default ({ username, profilePicture, posts, followers, following, name, b
                 </div>
                 <div className='col'>
                     <Typography variant='title' color='default' className='center'>{ name }</Typography>
-                    <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ bookId }`) } className='center'>📖 { book }</Button>
+                    <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ book_id }`) } className='center'>📖 { book }</Button>
                     <Typography variant='subheading' color='default' className='center'>{ about }</Typography>
                 </div>
             </div>

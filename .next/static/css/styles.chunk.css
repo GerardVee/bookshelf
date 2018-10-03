@@ -78,6 +78,11 @@ body {
   padding-left: 3em !important;
   width: 250px !important; }
 
+.bookshelf-book-main {
+  align-self: center;
+  padding-top: 3em;
+  width: 70%; }
+
 .bookshelf-profile-main {
   align-self: center;
   padding-top: 3em;
@@ -175,12 +180,27 @@ body {
   height: 137px; }
 
 .bookshelf-search-book-result-info {
+  align-content: flex-end;
   width: 300px;
   padding-left: 2em; }
   .bookshelf-search-book-result-info > h2 {
     padding-bottom: 0.7em; }
     .bookshelf-search-book-result-info > h2:hover {
       cursor: pointer; }
+
+.bookshelf-login-main {
+  align-self: center;
+  margin-top: 3em;
+  padding: 1em;
+  width: 50%; }
+  .bookshelf-login-main > .row {
+    margin-bottom: 0.5em; }
+
+.bookshelf-login-main-title {
+  font-size: 4.5em !important;
+  font-family: "Dancing Script" !important;
+  margin-bottom: 1em !important;
+  font-weight: 800 !important; }
 
 
 /*# sourceMappingURL=styles.chunk.css.map*/

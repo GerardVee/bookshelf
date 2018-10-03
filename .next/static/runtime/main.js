@@ -5604,7 +5604,7 @@ function connect(options) {
       error.name = err.name;
       error.stack = err.stack; // __NEXT_DIST_DIR is provided by webpack
 
-      (0, _sourceMapSupport.rewriteStacktrace)(error, "/mnt/c/Users/ILove/Desktop/projects/instashot/.next");
+      (0, _sourceMapSupport.rewriteStacktrace)(error, "/mnt/c/Users/ILove/Desktop/projects/bookshelf/.next");
       return error;
     }
   };
@@ -18074,7 +18074,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/c/Users/ILove/Desktop/projects/instashot/node_modules/next/dist/client/next-dev */"./node_modules/next/dist/client/next-dev.js");
+module.exports = __webpack_require__(/*! /mnt/c/Users/ILove/Desktop/projects/bookshelf/node_modules/next/dist/client/next-dev */"./node_modules/next/dist/client/next-dev.js");
 
 
 /***/ }),

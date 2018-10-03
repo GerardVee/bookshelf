@@ -37,7 +37,7 @@ export default class extends Component
                         <div className='row align-center bookshelf-search-book-result'>
                             { result.volumeInfo.imageLinks && result.volumeInfo.imageLinks.smallThumbnail && <img src={ result.volumeInfo.imageLinks.smallThumbnail } className='bookshelf-search-book-result-image' /> }
                             { (!(result.volumeInfo.imageLinks) || !(result.volumeInfo.imageLinks.smallThumbnail)) && <img src='https://books.google.com/googlebooks/images/no_cover_thumb.gif' className='bookshelf-search-book-result-image' /> }
-                            <div className='col bookshelf-search-book-result-info' style={{ alignContent: 'flex-end' }}>
+                            <div className='col bookshelf-search-book-result-info'>
                                 <Typography variant='title' color='primary' onClick={ () => Router.push(`${ base }book?id=${ result.id }`) }
                                     className='center'>{ result.volumeInfo.title }</Typography>
                                 <Typography variant='body1' color='default' className='black center'>by { result.volumeInfo.authors.join(', ') }</Typography>

@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import { Component } from 'react';
 import Router from 'next/router';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,41 +12,59 @@ import Mail from '@material-ui/icons/Mail';
 import Notifications from '@material-ui/icons/Notifications';
 import Profile from '@material-ui/icons/Person';
 
+import { loadFromLocalStorage } from '../ducks/actions';
+
 const base = '/';
 
-export default class extends Component
+const mapStateToProps = (state) =>
+({
+    user: state,
+});
+
+const mapDispatchToProps = (dispatch) =>
+({
+    loadFromLocalStorage: () => dispatch(loadFromLocalStorage())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
 {
     state =
     {
         input: '',
     };
 
+    componentDidMount()
+    {
+        this.props.loadFromLocalStorage();        
+    }
+
     render()
     {
-        const { messages, notifications } = this.props;
+        const { user } = this.props;
         const { input } = this.state;
+        const loggedIn = user.utoken ? (user.utoken === '' ? false : true) : false;
         return (
             <AppBar position='sticky'>
                 <Toolbar className='bookshelf-toolbar' variant='dense'>
                     <Typography variant='headline' color='default' className='bookshelf-toolbar-title' onClick={ () => Router.push(base) }>bookshelf</Typography>
-                    <div className='bookshelf-toolbar-search'>
+                    { loggedIn && <div className='bookshelf-toolbar-search'>
                         <div className='bookshelf-toolbar-search-icon'>
                             <SearchIcon />
                         </div>
                         <Input placeholder='Search..' disableUnderline classes={{ root: 'bookshelf-toolbar-search-root', input: 'bookshelf-toolbar-search-input', }}
                             onChange={ (e) => this.setState({ input: e.target.value }) }
                             onKeyUp={ (e) => e.keyCode === 13 ? Router.push(base + 'search?name=' + encodeURI(input) ) : null } />
-                    </div>
-                    <div className='row'>
+                    </div> }
+                    { loggedIn && <div className='row'>
                         <IconButton>
-                            { (messages > 0) && <Badge badgeContent={ 0 } color='secondary'>
+                            { (user.messages.length > 0) && <Badge badgeContent={ user.messages.length } color='secondary'>
                                 <Mail />
                             </Badge>
                             }
                             <Mail />
                         </IconButton>
                         <IconButton>
-                            { (notifications > 0) && <Badge badgeContent={ 0 } color='secondary'>
+                            { (user.notifications.length > 0) && <Badge badgeContent={ user.notifications.length } color='secondary'>
                                 <Notifications />
                             </Badge>
                             }
@@ -54,9 +73,9 @@ export default class extends Component
                         <IconButton onClick={ () => Router.push(base + 'profile') }>
                             <Profile />
                         </IconButton>
-                    </div>
+                    </div> }    
                 </Toolbar>
             </AppBar>
         );
     }
-};
+});
