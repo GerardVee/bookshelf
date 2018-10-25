@@ -30,6 +30,11 @@ body
     flex-direction: column;
 }
 
+.none
+{
+    display: none;
+}
+
 .center
 {
     text-align: center;
@@ -48,6 +53,11 @@ body
 .align-center
 {
     align-items: center;
+}
+
+.wrap
+{
+    flex-wrap: wrap;
 }
 
 .slightly-bold

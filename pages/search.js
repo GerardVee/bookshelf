@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
 import { Component } from 'react';
 
+import { get } from '../utils/methods';
 import Theme from '../theme';
 import Header from '../components/Header';
 import Tabs from '../components/search/Tabs';
@@ -12,19 +13,25 @@ export default class extends Component
     static async getInitialProps({ query })
     {
         const { name } = query;
-        const req = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + name);
-        const json = await req.json();
-        return { bookResults: json.items };
+        const booksReq = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + name);
+        const books = await booksReq.json();
+        const usersReq = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/search/' + name, get());
+        const users = await usersReq.json();
+        if (typeof(users) === typeof(' '))
+        {
+            return { bookResults: books.items, userResults: [] };
+        }
+        return { bookResults: books.items, userResults: users };
     }
 
     render()
     {
-        const { bookResults } = this.props;
+        const { bookResults, userResults } = this.props;
         return (
             <div className='bookshelf-page'>
                 <Theme>
-                    <Header messages={ 0 } notifications={ 0 } />
-                    <Tabs bookSearch={ bookResults } userSearch={ [] } />
+                    <Header />
+                    <Tabs bookSearch={ bookResults } userSearch={ userResults } />
                 </Theme>
             </div>
         );

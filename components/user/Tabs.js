@@ -1,26 +1,13 @@
 import 'isomorphic-fetch';
 import { Component } from 'react';
-import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
 import BookCard from '../BookCard';
-import { removeReadBook, removeWillReadBook } from '../../ducks/actions';
 
-const mapStateToProps = (state) => (
-{
-    user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) => (
-{
-    deleteReadBook: (user, index) => dispatch(removeReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
-    deleteWillReadBook: (user, index) => dispatch(removeWillReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
+export default class extends Component
 {
     state =
     {
@@ -31,9 +18,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
 
     render()
     {
-        const { user, deleteReadBook, deleteWillReadBook } = this.props;
-        const { posts, books } = this.props.user;
-        const { reading, will_read, have_read } = books;
+        const { user } = this.props;
+        const { will_read, have_read } = user.books;
+        const reading = user.books.reading ? user.books.reading : { book_id: '' };
         const { value } = this.state;
         return (
             <>
@@ -44,7 +31,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                     </Tabs>
                 </Paper>
                 { value === 'posts' && <div className='bookshelf-profile-books-container'>
-                    { (posts ? posts.length === 0 : true) && <Typography variant='title' color='default'>No posts yet</Typography> }
+                    { (user.posts ? user.posts.length === 0 : true) && <Typography variant='title' color='default'>No posts yet</Typography> }
                 </div> }
                 { value === 'books' && <div className='bookshelf-profile-books-container'>
                     <div className='bookshelf-profile-books-container-shelf col'>
@@ -55,16 +42,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                     <div className='bookshelf-profile-books-container-shelf col'>
                         <Typography variant='title' color='default'>Books I've read ({ have_read.length })</Typography>
                         <div className='row wrap'>
-                        { have_read.map((book, index) =>
-                            <BookCard { ...book } deleteBook={ () => deleteReadBook(user, index) } />) }
+                        { have_read.map((book) =>
+                            <BookCard { ...book } immutable />) }
                         { have_read.length === 0 && <Typography variant='subheading' color='default'>No books here yet</Typography> }
                         </div>
                     </div>
                     <div className='bookshelf-profile-books-container-shelf col'>
                         <Typography variant='title' color='default'>Books I'll read ({ will_read.length })</Typography>
                         <div className='row wrap'>
-                        { will_read.map((book, index) =>
-                            <BookCard { ...book } deleteBook={ () => deleteWillReadBook(user, index) } />) }
+                        { will_read.map((book) =>
+                            <BookCard { ...book } immutable/>) }
                         { will_read.length === 0 && <Typography variant='subheading' color='default'>No books here yet</Typography> }
                         </div>
                     </div>
@@ -72,4 +59,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
             </>
         );
     }
-});
+}

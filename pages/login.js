@@ -1,5 +1,3 @@
-// make sign up action
-// find way to filter name, username and password to match out expectations
 import { connect } from 'react-redux';
 import { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
@@ -10,21 +8,15 @@ import Theme from '../theme';
 import Header from '../components/Header';
 import LoginDialog from '../components/login/LoginDialog';
 import SignupDialog from '../components/login/SignupDialog';
-import { logout } from '../ducks/actions';
 
 import '../styles/index.scss';
 
 const mapStateToProps = (state) =>
 ({
-    user: state,
+    user: state.user,
 });
 
-const mapDispatchToProps = (dispatch) =>
-({
-    logout: (user) => dispatch(logout(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
+export default connect(mapStateToProps)(class extends Component
 {
     state =
     {
@@ -34,12 +26,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
 
     render()
     {
-        const { user, logout } = this.props;
+        const { user } = this.props;
         const { loginOpen, signupOpen } = this.state;
-        const loggedIn = user.utoken ? (user.utoken === '' ? false : true) : false;
+        const loggedIn = user.utoken !== '';
         return (
             <div className='bookshelf-page'>
                 <Theme>
+                    { console.log(loginOpen) }
                     <Header />
                     <Paper className='col bookshelf-login-main'>
                         <Typography variant='title' color='default' align='center' className='bookshelf-login-main-title'>bookshelf</Typography>
@@ -54,10 +47,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                         </div>
                         <SignupDialog open={ signupOpen } close={ () => this.setState({ signupOpen: false }) } />
                     </Paper>
-                    <div className='row align-center justify-center'>
-                        <Button variant='contained' color='secondary' size='large' onClick={ () => logout({ user_id: user.user_id || '', utoken: user.utoken || '' }) }>Logout</Button>
-                    </div>
-                    { JSON.stringify(user) }
                 </Theme>
             </div>
         );

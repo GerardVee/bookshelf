@@ -23,7 +23,7 @@ export default class extends Component
         return (
             <div className='bookshelf-page'>
                 <Theme>
-                    <Header messages={ 0 } notifications={ 0 } />
+                    <Header />
                     <BookInfo id={ id } { ...volumeInfo } />
                 </Theme>
             </div>

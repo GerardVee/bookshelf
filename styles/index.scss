@@ -64,6 +64,37 @@
     width: 250px!important;
 }
 
+.bookshelf-error-snackbar, .bookshelf-success-snackbar, .bookshelf-warning-snackbar
+{
+    #client-snackbar
+    {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.bookshelf-snackbar-icon
+{
+    opacity: 0.9!important;
+    font-size: 20px!important;
+    margin-right: 0.5em!important;
+}
+
+.bookshelf-error-snackbar
+{
+    background-color: #D32F2F!important;
+}
+
+.bookshelf-success-snackbar
+{
+    background-color: #4CAF50!important;
+}
+
+.bookshelf-warning-snackbar
+{
+    background-color: #9E9D24!important;
+}
+
 .bookshelf-book-main
 {
     align-self: center;
@@ -123,9 +154,19 @@
 .bookshelf-profile-books-container
 {
     display: flex;
+    flex-direction: column;
     align-self: center;
     width: 70%;
     margin-top: 3em;
+}
+
+.bookshelf-profile-books-container-shelf
+{
+    margin-top: 3em;
+    & > *
+    {
+        margin-top: 1.5em;
+    }
 }
 
 .bookshelf-book-main
@@ -133,12 +174,17 @@
     align-self: center;
     padding-top: 3em;
     width: 70%;
+    & > .row
+    {
+        align-self: center;
+    }
 }
 
 .bookshelf-book-main-image
 {
     width: 300px;
     height: 389px;
+    margin: 2em;
 }
 
 .bookshelf-book-main-stats
@@ -194,7 +240,7 @@
     flex-grow: 1;
 }
 
-.bookshelf-search-book-results
+.bookshelf-search-book-results, .bookshelf-search-user-results
 {
     align-self: center;
     align-items: center;
@@ -234,7 +280,34 @@
     }
 }
 
-.bookshelf-login-main
+.bookshelf-search-user-result
+{
+    width: 40%;
+    padding: 1em 2em;
+    border-radius: 1em;
+    &:hover
+    {
+        cursor: pointer;
+    }
+}
+
+.bookshelf-search-user-avatar
+{
+    height: 53px!important;
+    width: 53px!important;
+    & > img
+    {
+        height: 53px!important;
+        width: 53px!important;
+    }
+}
+
+.bookshelf-search-user-username
+{
+    margin-left: 1em!important;
+}
+
+.bookshelf-login-main, .bookshelf-edit-main
 {
     align-self: center;
     margin-top: 3em;

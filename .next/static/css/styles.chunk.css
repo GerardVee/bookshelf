@@ -14,6 +14,9 @@ body {
 .col {
   flex-direction: column; }
 
+.none {
+  display: none; }
+
 .center {
   text-align: center; }
 
@@ -25,6 +28,9 @@ body {
 
 .align-center {
   align-items: center; }
+
+.wrap {
+  flex-wrap: wrap; }
 
 .slightly-bold {
   font-weight: 500; }
@@ -78,6 +84,24 @@ body {
   padding-left: 3em !important;
   width: 250px !important; }
 
+.bookshelf-error-snackbar #client-snackbar, .bookshelf-success-snackbar #client-snackbar, .bookshelf-warning-snackbar #client-snackbar {
+  display: flex;
+  align-items: center; }
+
+.bookshelf-snackbar-icon {
+  opacity: 0.9 !important;
+  font-size: 20px !important;
+  margin-right: 0.5em !important; }
+
+.bookshelf-error-snackbar {
+  background-color: #D32F2F !important; }
+
+.bookshelf-success-snackbar {
+  background-color: #4CAF50 !important; }
+
+.bookshelf-warning-snackbar {
+  background-color: #9E9D24 !important; }
+
 .bookshelf-book-main {
   align-self: center;
   padding-top: 3em;
@@ -115,18 +139,27 @@ body {
 
 .bookshelf-profile-books-container {
   display: flex;
+  flex-direction: column;
   align-self: center;
   width: 70%;
   margin-top: 3em; }
+
+.bookshelf-profile-books-container-shelf {
+  margin-top: 3em; }
+  .bookshelf-profile-books-container-shelf > * {
+    margin-top: 1.5em; }
 
 .bookshelf-book-main {
   align-self: center;
   padding-top: 3em;
   width: 70%; }
+  .bookshelf-book-main > .row {
+    align-self: center; }
 
 .bookshelf-book-main-image {
   width: 300px;
-  height: 389px; }
+  height: 389px;
+  margin: 2em; }
 
 .bookshelf-book-main-stats {
   margin-left: 2em;
@@ -162,7 +195,7 @@ body {
   padding: 0em 12em;
   flex-grow: 1; }
 
-.bookshelf-search-book-results {
+.bookshelf-search-book-results, .bookshelf-search-user-results {
   align-self: center;
   align-items: center;
   width: 70%;
@@ -188,12 +221,29 @@ body {
     .bookshelf-search-book-result-info > h2:hover {
       cursor: pointer; }
 
-.bookshelf-login-main {
+.bookshelf-search-user-result {
+  width: 40%;
+  padding: 1em 2em;
+  border-radius: 1em; }
+  .bookshelf-search-user-result:hover {
+    cursor: pointer; }
+
+.bookshelf-search-user-avatar {
+  height: 53px !important;
+  width: 53px !important; }
+  .bookshelf-search-user-avatar > img {
+    height: 53px !important;
+    width: 53px !important; }
+
+.bookshelf-search-user-username {
+  margin-left: 1em !important; }
+
+.bookshelf-login-main, .bookshelf-edit-main {
   align-self: center;
   margin-top: 3em;
   padding: 1em;
   width: 50%; }
-  .bookshelf-login-main > .row {
+  .bookshelf-login-main > .row, .bookshelf-edit-main > .row {
     margin-bottom: 0.5em; }
 
 .bookshelf-login-main-title {

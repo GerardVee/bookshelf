@@ -10,12 +10,17 @@ import Button from '@material-ui/core/Button';
 
 import { login } from '../../ducks/actions';
 
+const mapStateToProps = state => (
+{
+    status: state.status,
+});
+
 const mapDispatchToProps = dispatch => (
 {
     login: (user) => dispatch(login(user)),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(class extends Component
+export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
 {
     state =
     {
@@ -25,11 +30,13 @@ export default connect(() => ({}), mapDispatchToProps)(class extends Component
 
     render()
     {
-        const { open, login, close } = this.props;
+        const { open, login, close, status } = this.props;
         const { username, password } = this.state;
+        const isOpen = status.type === '' && open;
+        console.log(isOpen);
         return (
             <Dialog
-                open={ open }
+                open={ isOpen }
                 onClose={ () => close() }
                 aria-labelledby='form-dialog-title'>
                 <DialogTitle id='form-dialog-title'>Login</DialogTitle>
@@ -42,7 +49,7 @@ export default connect(() => ({}), mapDispatchToProps)(class extends Component
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={ () => close() } variant='text' color='default'>Cancel</Button>
-                    <Button onClick={ () => login(this.state) } variant='contained' color='primary'>Login</Button>
+                    <Button onClick={ () => { login(this.state); close(); } } variant='contained' color='primary'>Login</Button>
                 </DialogActions>
             </Dialog>
         );

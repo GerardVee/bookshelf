@@ -3,10 +3,7 @@ import Router from 'next/router';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 const base = '/';
@@ -32,6 +29,14 @@ export default class extends Component
                         <Tab value='users' label='Users' />
                     </Tabs>
                 </Paper>
+                { value === 'users' && <div className='col bookshelf-search-user-results'>
+                    { userSearch.map(({ username, profile_picture }) => (
+                        <div className='row align-center bookshelf-search-user-result' onClick={ () => Router.push(`${ base }user?name=${ username }`)}>
+                            <Avatar alt={ username } src={ profile_picture } className='bookshelf-search-user-avatar' />
+                            <Typography variant='title' color='primary' className='bookshelf-search-user-username'>{ username }</Typography>
+                        </div>
+                    ))}
+                </div>}   
                 { value === 'books' && <div className='col bookshelf-search-book-results'>
                     { bookSearch.map(result => (
                         <div className='row align-center bookshelf-search-book-result'>
@@ -40,7 +45,7 @@ export default class extends Component
                             <div className='col bookshelf-search-book-result-info'>
                                 <Typography variant='title' color='primary' onClick={ () => Router.push(`${ base }book?id=${ result.id }`) }
                                     className='center'>{ result.volumeInfo.title }</Typography>
-                                <Typography variant='body1' color='default' className='black center'>by { result.volumeInfo.authors.join(', ') }</Typography>
+                                <Typography variant='body1' color='default' className='black center'>{ result.volumeInfo.authors ? 'by ' + result.volumeInfo.authors.join(', ') : '' }</Typography>
                             </div>
                         </div>
                     ))}

@@ -4,142 +4,524 @@
 /*!**************************!*\
   !*** ./ducks/actions.js ***!
   \**************************/
-/*! exports provided: actionTypes, receiveUserInfo, localStorageUserInfo, loadFromLocalStorage, login, logout */
+/*! exports provided: actionTypes, updateLocalStorageUserInfo, receiveLocalStorageUserInfo, loginUser, signUpUser, logoutUser, updateUser, updateProfilePhoto, followAUser, unfollowAUser, selectCurrentBook, appendReadBook, deleteReadBook, appendWillReadBook, deleteWillReadBook, receiveError, receiveWarning, receiveSuccess, clearStatus, loadFromLocalStorage, request, signup, login, logout, getSignedUrl, updateProfile, updateProfilePicture, followUser, unfollowUser, selectReadingBook, selectReadBook, removeReadBook, selectWillReadBook, removeWillReadBook */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionTypes", function() { return actionTypes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUserInfo", function() { return receiveUserInfo; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localStorageUserInfo", function() { return localStorageUserInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateLocalStorageUserInfo", function() { return updateLocalStorageUserInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveLocalStorageUserInfo", function() { return receiveLocalStorageUserInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return loginUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signUpUser", function() { return signUpUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateProfilePhoto", function() { return updateProfilePhoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followAUser", function() { return followAUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowAUser", function() { return unfollowAUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectCurrentBook", function() { return selectCurrentBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendReadBook", function() { return appendReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteReadBook", function() { return deleteReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendWillReadBook", function() { return appendWillReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteWillReadBook", function() { return deleteWillReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveError", function() { return receiveError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveWarning", function() { return receiveWarning; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSuccess", function() { return receiveSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearStatus", function() { return clearStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadFromLocalStorage", function() { return loadFromLocalStorage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "request", function() { return request; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSignedUrl", function() { return getSignedUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateProfile", function() { return updateProfile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateProfilePicture", function() { return updateProfilePicture; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followUser", function() { return followUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowUser", function() { return unfollowUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectReadingBook", function() { return selectReadingBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectReadBook", function() { return selectReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeReadBook", function() { return removeReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectWillReadBook", function() { return selectWillReadBook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeWillReadBook", function() { return removeWillReadBook; });
 /* harmony import */ var isomorphic_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! isomorphic-fetch */ "./node_modules/isomorphic-fetch/fetch-npm-browserify.js");
 /* harmony import */ var isomorphic_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(isomorphic_fetch__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/router */ "./node_modules/next/router.js");
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_methods__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/methods */ "./utils/methods.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
 
-var header = new Headers({
-  // 'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
-});
+
 var actionTypes = {
-  RECEIVE_USER_INFO: 'BOOKSHELF_RECEIVE_USER_INFO',
-  LOCALSTORAGE_USER_INFO: 'BOOKSHELF_LOCALSTORAGE_USER_INFO'
+  UPDATE_LOCALSTORAGE_USER_INFO: 'BOOKSHELF_UPDATE_LOCALSTORAGE_USER_INFO',
+  RECEIVE_LOCALSTORAGE_USER_INFO: 'BOOKSHELF_RECEIVE_LOCALSTORAGE_USER_INFO',
+  LOGIN_USER: 'BOOKSHELF_LOGIN_USER',
+  SIGN_UP_USER: 'BOOKSHELF_SIGN_UP_USER',
+  LOGOUT_USER: 'BOOKSHELF_LOGOUT_USER',
+  UPDATE_USER: 'BOOKSHELF_UPDATE_USER',
+  UPDATE_PROFILE_PICTURE: 'BOOKSHELF_UPDATE_PROFILE_PICTURE',
+  FOLLOW_USER: 'BOOKSHELF_FOLLOW_USER',
+  UNFOLLOW_USER: 'BOOKSHELF_UNFOLLOW_USER',
+  SELECT_CURRENT_BOOK: 'BOOKSHELF_SELECT_CURRENT_BOOK',
+  APPEND_READ_BOOK: 'BOOKSHELF_APPEND_READ_BOOK',
+  DELETE_READ_BOOK: 'BOOKSHELF_DELETE_READ_BOOK',
+  APPEND_WILL_READ_BOOK: 'BOOKSHELF_APPEND_WILL_READ_BOOK',
+  DELETE_WILL_READ_BOOK: 'BOOKSHELF_DELETE_WILL_READ_BOOK',
+  RECEIVE_ERROR: 'BOOKSHELF_RECEIVE_ERROR',
+  RECEIVE_WARNING: 'BOOKSHELF_RECEIVE_WARNING',
+  RECEIVE_SUCCESS: 'BOOKSHELF_RECEIVE_SUCCESS',
+  CLEAR_STATUS: 'BOOKSHELF_CLEAR_STATUS'
 };
-var receiveUserInfo = function receiveUserInfo(userInfo) {
+var updateLocalStorageUserInfo = function updateLocalStorageUserInfo() {
   return function (dispatch) {
     return dispatch({
-      type: actionTypes.RECEIVE_USER_INFO,
+      type: actionTypes.UPDATE_LOCALSTORAGE_USER_INFO
+    });
+  };
+};
+var receiveLocalStorageUserInfo = function receiveLocalStorageUserInfo(userInfo) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.RECEIVE_LOCALSTORAGE_USER_INFO,
       userInfo: userInfo
     });
   };
 };
-var localStorageUserInfo = function localStorageUserInfo(userInfo) {
+var loginUser = function loginUser(userInfo) {
   return function (dispatch) {
     return dispatch({
-      type: actionTypes.LOCALSTORAGE_USER_INFO,
+      type: actionTypes.LOGIN_USER,
       userInfo: userInfo
+    });
+  };
+};
+var signUpUser = function signUpUser(userInfo) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.SIGN_UP_USER,
+      userInfo: userInfo
+    });
+  };
+};
+var logoutUser = function logoutUser() {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.LOGOUT_USER
+    });
+  };
+};
+var updateUser = function updateUser(user) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.UPDATE_USER,
+      user: user
+    });
+  };
+};
+var updateProfilePhoto = function updateProfilePhoto(_ref) {
+  var url = _ref.url;
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.UPDATE_PROFILE_PICTURE,
+      url: url
+    });
+  };
+};
+var followAUser = function followAUser(_ref2) {
+  var user = _ref2.user;
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.FOLLOW_USER,
+      user: user
+    });
+  };
+};
+var unfollowAUser = function unfollowAUser(_ref3) {
+  var index = _ref3.index;
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.UNFOLLOW_USER,
+      index: index
+    });
+  };
+};
+var selectCurrentBook = function selectCurrentBook(book) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.SELECT_CURRENT_BOOK,
+      book: book
+    });
+  };
+};
+var appendReadBook = function appendReadBook(book) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.APPEND_READ_BOOK,
+      book: book
+    });
+  };
+};
+var deleteReadBook = function deleteReadBook(index) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.DELETE_READ_BOOK,
+      index: index
+    });
+  };
+};
+var appendWillReadBook = function appendWillReadBook(book) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.APPEND_WILL_READ_BOOK,
+      book: book
+    });
+  };
+};
+var deleteWillReadBook = function deleteWillReadBook(index) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.DELETE_WILL_READ_BOOK,
+      index: index
+    });
+  };
+};
+var receiveError = function receiveError(error) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.RECEIVE_ERROR,
+      error: error
+    });
+  };
+};
+var receiveWarning = function receiveWarning(warning) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.RECEIVE_WARNING,
+      warning: warning
+    });
+  };
+};
+var receiveSuccess = function receiveSuccess(success) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.RECEIVE_SUCCESS,
+      success: success
+    });
+  };
+};
+var clearStatus = function clearStatus() {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.CLEAR_STATUS
     });
   };
 };
 var loadFromLocalStorage = function loadFromLocalStorage() {
   return function (dispatch) {
-    var user = JSON.parse(localStorage.getItem('user'));
+    var user = JSON.parse(localStorage.getItem('bookshelf_user'));
 
     if (user !== null) {
       if (user.utoken === '') {
         next_router__WEBPACK_IMPORTED_MODULE_1___default.a.push('/login');
       }
 
-      dispatch(localStorageUserInfo(user));
+      dispatch(receiveLocalStorageUserInfo(user));
     } else if (user === null) {
       next_router__WEBPACK_IMPORTED_MODULE_1___default.a.push('/login');
     }
   };
 };
-var login = function login(_ref) {
-  var username = _ref.username,
-      password = _ref.password;
-  return function (dispatch) {
-    fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/login-bookshelf-user', {
-      body: JSON.stringify({
-        username: username,
-        password: password
-      }),
-      method: 'POST',
-      headers: header
-    }).then(function (res) {
-      if (!res.ok) {
-        throw Error(res.statusText);
+var request = function request(dispatch, url, options) {
+  var successMsg = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+  var errorMsg = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+  var action = arguments.length > 5 ? arguments[5] : undefined;
+  var includeResult = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : true;
+  var includeDispatch = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : true;
+  fetch(url, options).then(function (res) {
+    if (!res.ok) {
+      throw Error(res.statusText);
+    }
+
+    return res;
+  }).then(function (res) {
+    return res.json();
+  }).then(function (result) {
+    if (result !== null && _typeof(result) === 'object') {
+      if (result.errorMsg) {
+        dispatch(receiveError(errorMsg));
+        return;
       }
 
-      return res;
-    }).then(function (res) {
-      return res.json();
-    }).then(function (userInfo) {
-      if (userInfo !== null && _typeof(userInfo) === 'object') {
-        dispatch(receiveUserInfo(userInfo));
-      } else if (typeof userInfo === 'string') {
-        throw Error(userInfo);
-      } else {
-        throw Error('Login failed');
+      if (successMsg !== '') {
+        dispatch(receiveSuccess(successMsg));
       }
-    }).catch(function (text) {
-      console.log(text);
-    });
+
+      if (includeResult) {
+        if (includeDispatch) {
+          dispatch(action(result));
+        } else {
+          action(result);
+        }
+      } else {
+        dispatch(action());
+      }
+
+      dispatch(updateLocalStorageUserInfo());
+    } else if (typeof result === 'string') {
+      dispatch(receiveError(result));
+      throw Error(result);
+    } else {
+      if (errorMsg != '') {
+        dispatch(receiveError(errorMsg));
+        throw Error(errorMsg);
+      }
+    }
+  }).catch(function (text) {
+    console.log(text);
+  });
+};
+var signup = function signup(_ref4) {
+  var username = _ref4.username,
+      password = _ref4.password,
+      name = _ref4.name;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/signup', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      username: username,
+      password: password,
+      name: name
+    }), 'Signup success', 'Signup failed', signUpUser, true);
   };
 };
-var logout = function logout(_ref2) {
-  var user_id = _ref2.user_id,
-      utoken = _ref2.utoken;
+var login = function login(_ref5) {
+  var username = _ref5.username,
+      password = _ref5.password;
   return function (dispatch) {
-    fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/logout-bookshelf-user', {
-      body: JSON.stringify({
-        user_id: user_id,
-        utoken: utoken
-      }),
-      method: 'POST',
-      headers: header
-    }).then(function (res) {
-      if (!res.ok) {
-        throw Error(res.statusText);
-      }
-
-      return res;
-    }).then(function (res) {
-      return res.json();
-    }).then(function (userInfo) {
-      if (userInfo !== null && _typeof(userInfo) === 'object') {
-        dispatch(receiveUserInfo(userInfo));
-      } else if (typeof userInfo === 'string') {
-        throw Error(userInfo);
-      } else {
-        throw Error('Logout failed');
-      }
-    }).catch(function (text) {
-      console.log(text);
-    });
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/login', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      username: username,
+      password: password
+    }), 'Login success', 'Login failed', loginUser, true);
+  };
+};
+var logout = function logout(_ref6) {
+  var user_id = _ref6.user_id,
+      utoken = _ref6.utoken;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/logout', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      user_id: user_id,
+      utoken: utoken
+    }), 'Logged out', 'Logout failed', function (_) {
+      dispatch(logoutUser());
+      localStorage.removeItem('bookshelf_user');
+      next_router__WEBPACK_IMPORTED_MODULE_1___default.a.push('/login');
+    }, true, false);
+  };
+};
+var getSignedUrl = function getSignedUrl(_ref7, callback) {
+  var user_id = _ref7.user_id,
+      utoken = _ref7.utoken,
+      filename = _ref7.filename,
+      filetype = _ref7.filetype;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture-signed-url', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      user_id: user_id,
+      utoken: utoken,
+      filename: filename,
+      filetype: filetype
+    }), 'Uploading image', 'Image upload failed', callback, true, false);
+  };
+};
+var updateProfile = function updateProfile(_ref8) {
+  var user_id = _ref8.user_id,
+      utoken = _ref8.utoken,
+      name = _ref8.name,
+      about = _ref8.about;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/update', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["patch"])({
+      user_id: user_id,
+      utoken: utoken,
+      name: name,
+      about: about
+    }), 'Profile updated', 'Profile failed to update', updateUser, true);
+  };
+};
+var updateProfilePicture = function updateProfilePicture(_ref9) {
+  var user_id = _ref9.user_id,
+      utoken = _ref9.utoken,
+      profile_picture = _ref9.profile_picture,
+      url = _ref9.url;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["patch"])({
+      user_id: user_id,
+      utoken: utoken,
+      profile_picture: profile_picture,
+      url: url
+    }), 'Profile picture update', 'Profile picture failed to update', updateProfilePhoto, true);
+  };
+};
+var followUser = function followUser(_ref10) {
+  var user_id = _ref10.user_id,
+      utoken = _ref10.utoken,
+      user = _ref10.user;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/follow', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      user_id: user_id,
+      utoken: utoken,
+      user: user
+    }), 'Followed ' + user, 'Could not follow ' + user, followAUser, true);
+  };
+};
+var unfollowUser = function unfollowUser(_ref11) {
+  var user_id = _ref11.user_id,
+      utoken = _ref11.utoken,
+      user = _ref11.user;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/unfollow', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["patch"])({
+      user_id: user_id,
+      utoken: utoken,
+      user: user
+    }), 'Unfollowed ' + user, 'Could not unfollow ' + user, unfollowAUser, true);
+  };
+};
+var selectReadingBook = function selectReadingBook(_ref12) {
+  var user_id = _ref12.user_id,
+      utoken = _ref12.utoken,
+      book = _ref12.book;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/reading', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["patch"])({
+      user_id: user_id,
+      utoken: utoken,
+      book: book
+    }), 'Reading book updated', 'Reading book update failed', selectCurrentBook, true);
+  };
+};
+var selectReadBook = function selectReadBook(_ref13) {
+  var user_id = _ref13.user_id,
+      utoken = _ref13.utoken,
+      book = _ref13.book;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/have-read', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      user_id: user_id,
+      utoken: utoken,
+      book: book
+    }), 'Read book added', 'Read book addition failed', appendReadBook, true);
+  };
+};
+var removeReadBook = function removeReadBook(_ref14) {
+  var user_id = _ref14.user_id,
+      utoken = _ref14.utoken,
+      index = _ref14.index;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/have-read', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["deleteR"])({
+      user_id: user_id,
+      utoken: utoken,
+      index: index
+    }), 'Read book deleted', 'Read book deletion failed', deleteReadBook, true);
+  };
+};
+var selectWillReadBook = function selectWillReadBook(_ref15) {
+  var user_id = _ref15.user_id,
+      utoken = _ref15.utoken,
+      book = _ref15.book;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["post"])({
+      user_id: user_id,
+      utoken: utoken,
+      book: book
+    }), "Will read book added", 'Will read book addition failed', appendWillReadBook, true);
+  };
+};
+var removeWillReadBook = function removeWillReadBook(_ref16) {
+  var user_id = _ref16.user_id,
+      utoken = _ref16.utoken,
+      index = _ref16.index;
+  return function (dispatch) {
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', Object(_utils_methods__WEBPACK_IMPORTED_MODULE_2__["deleteR"])({
+      user_id: user_id,
+      utoken: utoken,
+      index: index
+    }), 'Will read book deleted', 'Will read book deletion failed', deleteWillReadBook, true);
   };
 };
 
 /***/ }),
 
-/***/ "./ducks/reducer.js":
-/*!**************************!*\
-  !*** ./ducks/reducer.js ***!
-  \**************************/
-/*! exports provided: reducer */
+/***/ "./ducks/reducers/status.js":
+/*!**********************************!*\
+  !*** ./ducks/reducers/status.js ***!
+  \**********************************/
+/*! exports provided: statusReducer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./ducks/actions.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "statusReducer", function() { return statusReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./ducks/actions.js");
+
+var initialState = {
+  type: '',
+  message: ''
+};
+var statusReducer = function statusReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].RECEIVE_ERROR:
+      return Object.assign({}, state, {
+        message: action.error,
+        type: 'ERR'
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].RECEIVE_WARNING:
+      return Object.assign({}, state, {
+        message: action.warning,
+        type: 'WAR'
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].RECEIVE_SUCCESS:
+      return Object.assign({}, state, {
+        message: action.success,
+        type: 'SUC'
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].CLEAR_STATUS:
+      return Object.assign({}, state, {
+        message: '',
+        type: ''
+      });
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./ducks/reducers/user.js":
+/*!********************************!*\
+  !*** ./ducks/reducers/user.js ***!
+  \********************************/
+/*! exports provided: initialState, userReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialState", function() { return initialState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userReducer", function() { return userReducer; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./ducks/actions.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var initialState = {
   user_id: '',
@@ -150,7 +532,7 @@ var initialState = {
   feed: [],
   // populate by fetching /{user}/feed - searches for posts that contain {user_id} in the {owner}'s {followers list}
   followers: [],
-  // list of user_ids like below
+  // list of usernames like below
   following: [],
   posts: [],
   // populate by fetching /{user}/posts
@@ -160,6 +542,7 @@ var initialState = {
   {
     reading: {
       book_id: '',
+      image_link: '',
       title: '',
       authors: [],
       book_link: ''
@@ -168,26 +551,124 @@ var initialState = {
     will_read: []
   },
   notifications: [],
-  messages: []
+  about: ''
 };
-var reducer = function reducer() {
+var userReducer = function userReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].RECEIVE_USER_INFO:
-      if (action.userInfo.utoken === '') {
-        localStorage.removeItem('user');
-      } else {
-        localStorage.setItem('user', JSON.stringify(Object.assign({}, state, action.userInfo)));
-      }
-
-      return Object.assign({}, state, action.userInfo);
-
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].LOCALSTORAGE_USER_INFO:
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].UPDATE_LOCALSTORAGE_USER_INFO:
       if (state.utoken === '') {
-        return Object.assign({}, state, action.userInfo);
+        localStorage.removeItem('bookshelf_user');
+      } else {
+        localStorage.setItem('bookshelf_user', JSON.stringify(Object.assign({}, state)));
       }
+
+      return state;
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].RECEIVE_LOCALSTORAGE_USER_INFO:
+      if (state.utoken === '') {
+        if (action.userInfo.books.reading) {
+          return _objectSpread({}, state, action.userInfo, {
+            books: _objectSpread({}, state.books, {
+              reading: _objectSpread({}, state.books.reading, action.userInfo.books.reading),
+              will_read: _toConsumableArray(state.books.will_read).concat(_toConsumableArray(action.userInfo.books.will_read)),
+              have_read: _toConsumableArray(state.books.have_read).concat(_toConsumableArray(action.userInfo.books.have_read))
+            })
+          });
+        } else {
+          return _objectSpread({}, state, action.userInfo, {
+            books: _objectSpread({}, state.books, {
+              reading: _objectSpread({}, state.books.reading),
+              will_read: _toConsumableArray(state.books.will_read).concat(_toConsumableArray(action.userInfo.books.will_read)),
+              have_read: _toConsumableArray(state.books.have_read).concat(_toConsumableArray(action.userInfo.books.have_read))
+            })
+          });
+        }
+      }
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].LOGIN_USER:
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].SIGN_UP_USER:
+      if (action.userInfo.books.reading) {
+        return _objectSpread({}, state, action.userInfo, {
+          books: _objectSpread({}, state.books, {
+            reading: _objectSpread({}, state.books.reading, action.userInfo.books.reading),
+            will_read: _toConsumableArray(state.books.will_read).concat(_toConsumableArray(action.userInfo.books.will_read)),
+            have_read: _toConsumableArray(state.books.have_read).concat(_toConsumableArray(action.userInfo.books.have_read))
+          })
+        });
+      } else {
+        return _objectSpread({}, state, action.userInfo, {
+          books: _objectSpread({}, state.books, {
+            reading: _objectSpread({}, state.books.reading),
+            will_read: _toConsumableArray(state.books.will_read).concat(_toConsumableArray(action.userInfo.books.will_read)),
+            have_read: _toConsumableArray(state.books.have_read).concat(_toConsumableArray(action.userInfo.books.have_read))
+          })
+        });
+      }
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].LOGOUT_USER:
+      return Object.assign({}, initialState);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].UPDATE_USER:
+      return Object.assign({}, state, action.user);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].UPDATE_PROFILE_PICTURE:
+      return Object.assign({}, state, {
+        profile_picture: action.url
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].FOLLOW_USER:
+      return Object.assign({}, state, {
+        following: _toConsumableArray(state.following).concat([action.user])
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].UNFOLLOW_USER:
+      return Object.assign({}, state, {
+        following: _toConsumableArray(state.following.filter(function (_, index) {
+          return index !== action.index;
+        }))
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].SELECT_CURRENT_BOOK:
+      return Object.assign({}, state, {
+        books: _objectSpread({}, state.books, {
+          reading: _objectSpread({}, state.books.reading, action.book)
+        })
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].APPEND_READ_BOOK:
+      return Object.assign({}, state, {
+        books: _objectSpread({}, state.books, {
+          have_read: _toConsumableArray(state.books.have_read).concat([action.book])
+        })
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].DELETE_READ_BOOK:
+      return Object.assign({}, state, {
+        books: _objectSpread({}, state.books, {
+          have_read: _toConsumableArray(state.books.have_read.filter(function (_, index) {
+            return index !== Number(action.index.index);
+          }))
+        })
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].APPEND_WILL_READ_BOOK:
+      return Object.assign({}, state, {
+        books: _objectSpread({}, state.books, {
+          will_read: _toConsumableArray(state.books.will_read).concat([action.book])
+        })
+      });
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["actionTypes"].DELETE_WILL_READ_BOOK:
+      return Object.assign({}, state, {
+        books: _objectSpread({}, state.books, {
+          will_read: _toConsumableArray(state.books.will_read.filter(function (_, index) {
+            return index !== Number(action.index.index);
+          }))
+        })
+      });
 
     default:
       return state;
@@ -210,13 +691,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
-/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducer */ "./ducks/reducer.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers/user */ "./ducks/reducers/user.js");
+/* harmony import */ var _reducers_status__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducers/status */ "./ducks/reducers/status.js");
 
 
 
 
+
+var reducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  user: _reducers_user__WEBPACK_IMPORTED_MODULE_3__["userReducer"],
+  status: _reducers_status__WEBPACK_IMPORTED_MODULE_4__["statusReducer"]
+});
 var makeStore = function makeStore(initial) {
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducer__WEBPACK_IMPORTED_MODULE_3__["reducer"], initial, Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, initial, Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"])));
 };
 
 /***/ }),
@@ -4749,7 +5236,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["default"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../next/node_modules/webpack/buildin/global.js */ "./node_modules/next/node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -7099,6 +7586,105 @@ function getURL() {
 
 /***/ }),
 
+/***/ "./node_modules/next/node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ "./node_modules/next/node_modules/webpack/buildin/harmony-module.js":
+/*!*******************************************!*\
+  !*** (webpack)/buildin/harmony-module.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if (!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/next/node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/next/router.js":
 /*!*************************************!*\
   !*** ./node_modules/next/router.js ***!
@@ -8468,7 +9054,7 @@ module.exports = (__webpack_require__(/*! dll-reference dll_5d62d38be3592dca3a42
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module), __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../next/node_modules/webpack/buildin/module.js */ "./node_modules/next/node_modules/webpack/buildin/module.js")(module), __webpack_require__(/*! ./../next/node_modules/webpack/buildin/global.js */ "./node_modules/next/node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -11317,7 +11903,7 @@ if (typeof self !== 'undefined') {
 var result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__["default"])(root);
 /* harmony default export */ __webpack_exports__["default"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../next/node_modules/webpack/buildin/global.js */ "./node_modules/next/node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../next/node_modules/webpack/buildin/harmony-module.js */ "./node_modules/next/node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 
@@ -12124,105 +12710,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/harmony-module.js":
-/*!*******************************************!*\
-  !*** (webpack)/buildin/harmony-module.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function(originalModule) {
-	if (!originalModule.webpackPolyfill) {
-		var module = Object.create(originalModule);
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		Object.defineProperty(module, "exports", {
-			enumerable: true
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/module.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/module.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/whatwg-fetch/fetch.js":
 /*!********************************************!*\
   !*** ./node_modules/whatwg-fetch/fetch.js ***!
@@ -12919,7 +13406,54 @@ function (_App) {
       }
     })(typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__.default : (module.exports.default || module.exports), "/_app")
   
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/next/node_modules/webpack/buildin/harmony-module.js */ "./node_modules/next/node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "./utils/methods.js":
+/*!**************************!*\
+  !*** ./utils/methods.js ***!
+  \**************************/
+/*! exports provided: get, post, patch, deleteR */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "post", function() { return post; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "patch", function() { return patch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteR", function() { return deleteR; });
+var header = new Headers({
+  // 'Access-Control-Allow-Origin': '*',
+  'Content-Type': 'application/json'
+});
+var get = function get() {
+  return {
+    method: 'GET',
+    headers: header
+  };
+};
+var post = function post(body) {
+  return {
+    body: JSON.stringify(body),
+    method: 'POST',
+    headers: header
+  };
+};
+var patch = function patch(body) {
+  return {
+    body: JSON.stringify(body),
+    method: 'PATCH',
+    headers: header
+  };
+};
+var deleteR = function deleteR(body) {
+  return {
+    body: JSON.stringify(body),
+    method: 'DELETE',
+    headers: header
+  };
+};
 
 /***/ }),
 
