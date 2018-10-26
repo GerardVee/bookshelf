@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -559,537 +559,6 @@ function (_Component) {
         },
         __self: this
       }));
-    }
-  }]);
-
-  return _class;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"])));
-
-/***/ }),
-
-/***/ "./components/edit/ChangeProfilePhoto.js":
-/*!***********************************************!*\
-  !*** ./components/edit/ChangeProfilePhoto.js ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "axios");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Button */ "@material-ui/core/Button");
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _ducks_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../ducks/actions */ "./ducks/actions.js");
-
-var _jsxFileName = "/mnt/c/Users/ILove/Desktop/projects/bookshelf/components/edit/ChangeProfilePhoto.js";
-
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    user: state.user
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    getSignedUrl: function getSignedUrl(_ref, filename, filetype, callback) {
-      var user_id = _ref.user_id,
-          utoken = _ref.utoken;
-      return dispatch(Object(_ducks_actions__WEBPACK_IMPORTED_MODULE_5__["getSignedUrl"])({
-        user_id: user_id,
-        utoken: utoken,
-        filename: filename,
-        filetype: filetype
-      }, callback));
-    },
-    updateProfilePicture: function updateProfilePicture(_ref2, url) {
-      var user_id = _ref2.user_id,
-          utoken = _ref2.utoken,
-          profile_picture = _ref2.profile_picture;
-      return dispatch(Object(_ducks_actions__WEBPACK_IMPORTED_MODULE_5__["updateProfilePicture"])({
-        user_id: user_id,
-        utoken: utoken,
-        profile_picture: profile_picture,
-        url: url
-      }));
-    },
-    error: function error(msg) {
-      return dispatch(Object(_ducks_actions__WEBPACK_IMPORTED_MODULE_5__["receiveError"])(msg));
-    }
-  };
-};
-
-var extensionCapture = function extensionCapture(file) {
-  return /(?:\.([^.]+))?$/.exec(file)[1];
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(
-/*#__PURE__*/
-function (_Component) {
-  _inherits(_class, _Component);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(_class).apply(this, arguments));
-  }
-
-  _createClass(_class, [{
-    key: "handleUpload",
-    value: function () {
-      var _handleUpload = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-        var _this = this;
-
-        var user, user_id, file, filetype, extensionCollect, ext, filename;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                e.preventDefault();
-                user = this.props.user;
-                user_id = user.user_id;
-                file = this.uploadInput.files[0];
-                filetype = file.type;
-                extensionCollect = extensionCapture(file.name);
-                ext = extensionCollect ? extensionCollect : 'jpg';
-                filename = 'avatars/' + user_id + '.' + ext;
-
-                if (filetype.includes('image')) {
-                  _context2.next = 11;
-                  break;
-                }
-
-                this.props.error('File is not an image');
-                return _context2.abrupt("return");
-
-              case 11:
-                if (!(file.size > 5242880)) {
-                  _context2.next = 14;
-                  break;
-                }
-
-                this.props.error('Photo bigger than 5MB');
-                return _context2.abrupt("return");
-
-              case 14:
-                this.props.getSignedUrl(user, filename, filetype,
-                /*#__PURE__*/
-                function () {
-                  var _ref4 = _asyncToGenerator(
-                  /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref3) {
-                    var signedRequest, url, req;
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            signedRequest = _ref3.signedRequest, url = _ref3.url;
-                            _context.next = 3;
-                            return axios__WEBPACK_IMPORTED_MODULE_2___default.a.put(signedRequest, file, {
-                              headers: {
-                                'content-type': file.type,
-                                'x-amz-acl': 'public-read'
-                              }
-                            });
-
-                          case 3:
-                            req = _context.sent;
-
-                            if (req.status === 200) {
-                              _this.props.updateProfilePicture(user, url);
-                            } else {
-                              _this.error('Photo failed to upload');
-                            }
-
-                          case 5:
-                          case "end":
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee, this);
-                  }));
-
-                  return function (_x2) {
-                    return _ref4.apply(this, arguments);
-                  };
-                }());
-
-              case 15:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      return function handleUpload(_x) {
-        return _handleUpload.apply(this, arguments);
-      };
-    }()
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        variant: "flat",
-        color: "primary",
-        size: "small",
-        component: function component(props) {
-          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", _extends({}, props, {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 61
-            },
-            __self: this
-          }));
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 61
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        className: "none",
-        ref: function ref(_ref5) {
-          _this2.uploadInput = _ref5;
-        },
-        type: "file",
-        onChange: function onChange(e) {
-          return _this2.handleUpload(e);
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 62
-        },
-        __self: this
-      }), "Change Profile Photo");
-    }
-  }]);
-
-  return _class;
-}(react__WEBPACK_IMPORTED_MODULE_1__["Component"])));
-
-/***/ }),
-
-/***/ "./components/edit/EditModal.js":
-/*!**************************************!*\
-  !*** ./components/edit/EditModal.js ***!
-  \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Paper */ "@material-ui/core/Paper");
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Typography */ "@material-ui/core/Typography");
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/TextField */ "@material-ui/core/TextField");
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Button */ "@material-ui/core/Button");
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _ducks_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../ducks/actions */ "./ducks/actions.js");
-/* harmony import */ var _ChangeProfilePhoto__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ChangeProfilePhoto */ "./components/edit/ChangeProfilePhoto.js");
-var _jsxFileName = "/mnt/c/Users/ILove/Desktop/projects/bookshelf/components/edit/EditModal.js";
-
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-
-
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    user: state.user
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    logout: function logout(user) {
-      return dispatch(Object(_ducks_actions__WEBPACK_IMPORTED_MODULE_6__["logout"])(user));
-    },
-    edit: function edit(_ref, name, about) {
-      var user_id = _ref.user_id,
-          utoken = _ref.utoken;
-      return dispatch(Object(_ducks_actions__WEBPACK_IMPORTED_MODULE_6__["updateProfile"])({
-        user_id: user_id,
-        utoken: utoken,
-        name: name,
-        about: about
-      }));
-    },
-    error: function error(msg) {
-      return dispatch(Object(_ducks_actions__WEBPACK_IMPORTED_MODULE_6__["receiveError"])(msg));
-    }
-  };
-};
-
-var validName = function validName(name) {
-  return /^[a-z0-9\s]+$/i.test(name) && name.replace(/[^\s]/g, '').length <= 2 && name.replace(/[\s]/g, '').length >= 3;
-};
-
-var validNameLength = function validNameLength(_ref2) {
-  var length = _ref2.length;
-  return length >= 3 && length <= 25;
-};
-
-var invalidName = function invalidName(name) {
-  return !validName(name) || !validNameLength(name);
-};
-
-var nameLengthError = 'Name must be between 3 and 25 characters long';
-var nameValidityError = 'Name must only use a-z (at least 3), and have 2 spaces max';
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(
-/*#__PURE__*/
-function (_Component) {
-  _inherits(_class, _Component);
-
-  function _class(props) {
-    var _this;
-
-    _classCallCheck(this, _class);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(_class).call(this, props));
-    _this.state = {
-      name: props.user.name,
-      about: props.user.about
-    };
-    return _this;
-  }
-
-  _createClass(_class, [{
-    key: "edit",
-    value: function edit() {
-      var _this$state = this.state,
-          name = _this$state.name,
-          about = _this$state.about;
-      var user = this.props.user;
-      var trueName = name === user.name ? '' : name;
-      var trueAbout = about === user.about ? '' : about;
-
-      if (!validNameLength(name)) {
-        this.props.error(nameLengthError);
-        return;
-      }
-
-      if (!validName(name)) {
-        this.props.error(nameValidityError);
-        return;
-      }
-
-      this.props.edit(user, trueName, trueAbout);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var _this$props = this.props,
-          logout = _this$props.logout,
-          user = _this$props.user;
-      var _this$state2 = this.state,
-          name = _this$state2.name,
-          about = _this$state2.about;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_2___default.a, {
-        className: "col bookshelf-edit-main",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 66
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row",
-        style: {
-          justifyContent: 'space-between'
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 67
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_3___default.a, {
-        variant: "display2",
-        color: "default",
-        align: "center",
-        className: "black",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 68
-        },
-        __self: this
-      }, "Edit Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 69
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ChangeProfilePhoto__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 70
-        },
-        __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
-        variant: "text",
-        color: "secondary",
-        size: "small",
-        onClick: function onClick() {
-          return logout({
-            user_id: user.user_id || '',
-            utoken: user.utoken || ''
-          });
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 71
-        },
-        __self: this
-      }, "Logout"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row justify-center",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 75
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        variant: "standard",
-        margin: "dense",
-        id: "name",
-        label: "Name",
-        type: "text",
-        value: name,
-        onChange: function onChange(e) {
-          return _this2.setState({
-            name: e.target.value
-          });
-        },
-        required: true,
-        style: {
-          width: '40%'
-        },
-        error: invalidName(name),
-        helperText: !validNameLength(name) ? nameLengthError : !validName(name) ? nameValidityError : '',
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 76
-        },
-        __self: this
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row justify-center",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 80
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        variant: "standard",
-        margin: "dense",
-        id: "about",
-        label: "About",
-        type: "text",
-        value: about,
-        onChange: function onChange(e) {
-          return _this2.setState({
-            about: e.target.value
-          });
-        },
-        required: true,
-        style: {
-          width: '40%'
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 81
-        },
-        __self: this
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row align-center justify-center",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 84
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
-        variant: "contained",
-        color: "primary",
-        size: "large",
-        onClick: function onClick() {
-          return _this2.edit();
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 85
-        },
-        __self: this
-      }, "Save Changes")));
     }
   }]);
 
@@ -1876,10 +1345,10 @@ var removeWillReadBook = function removeWillReadBook(_ref16) {
 
 /***/ }),
 
-/***/ "./pages/edit.js":
-/*!***********************!*\
-  !*** ./pages/edit.js ***!
-  \***********************/
+/***/ "./pages/index.js":
+/*!************************!*\
+  !*** ./pages/index.js ***!
+  \************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1887,45 +1356,50 @@ var removeWillReadBook = function removeWillReadBook(_ref16) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../theme */ "./theme/index.js");
-/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Header */ "./components/Header.js");
-/* harmony import */ var _components_edit_EditModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/edit/EditModal */ "./components/edit/EditModal.js");
-/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles/index.scss */ "./styles/index.scss");
-/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_styles_index_scss__WEBPACK_IMPORTED_MODULE_4__);
-var _jsxFileName = "/mnt/c/Users/ILove/Desktop/projects/bookshelf/pages/edit.js";
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../theme */ "./theme/index.js");
+/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header */ "./components/Header.js");
+/* harmony import */ var _ducks_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ducks/actions */ "./ducks/actions.js");
+/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/index.scss */ "./styles/index.scss");
+/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_styles_index_scss__WEBPACK_IMPORTED_MODULE_5__);
+var _jsxFileName = "/mnt/c/Users/ILove/Desktop/projects/bookshelf/pages/index.js";
 
 
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (function () {
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(function (_ref) {
+  var user = _ref.user;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "bookshelf-page",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 15
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_theme__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_theme__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9
+      lineNumber: 16
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10
+      lineNumber: 17
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_edit_EditModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 11
-    },
-    __self: this
-  })));
-});
+  }), JSON.stringify(user)));
+}));
 
 /***/ }),
 
@@ -2036,26 +1510,15 @@ var deleteR = function deleteR(body) {
 
 /***/ }),
 
-/***/ 3:
-/*!*****************************!*\
-  !*** multi ./pages/edit.js ***!
-  \*****************************/
+/***/ 4:
+/*!******************************!*\
+  !*** multi ./pages/index.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./pages/edit.js */"./pages/edit.js");
+module.exports = __webpack_require__(/*! ./pages/index.js */"./pages/index.js");
 
-
-/***/ }),
-
-/***/ "@babel/runtime/regenerator":
-/*!*********************************************!*\
-  !*** external "@babel/runtime/regenerator" ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@babel/runtime/regenerator");
 
 /***/ }),
 
@@ -2199,17 +1662,6 @@ module.exports = require("@material-ui/core/Menu");
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/MenuItem");
-
-/***/ }),
-
-/***/ "@material-ui/core/Paper":
-/*!******************************************!*\
-  !*** external "@material-ui/core/Paper" ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/Paper");
 
 /***/ }),
 
@@ -2389,17 +1841,6 @@ module.exports = require("@material-ui/icons/Warning");
 
 /***/ }),
 
-/***/ "axios":
-/*!************************!*\
-  !*** external "axios" ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-
 /***/ "isomorphic-fetch":
 /*!***********************************!*\
   !*** external "isomorphic-fetch" ***!
@@ -2445,4 +1886,4 @@ module.exports = require("react-redux");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=edit.js.map
+//# sourceMappingURL=index.js.map

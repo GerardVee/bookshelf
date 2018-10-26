@@ -45,9 +45,19 @@ body
     text-align: left;
 }
 
+.right
+{
+    text-align: right;
+}
+
 .justify-center
 {
     justify-content: center;
+}
+
+.justify-space-between
+{
+    justify-content: 'space-between';
 }
 
 .align-center
@@ -68,4 +78,9 @@ body
 .black
 {
     color: black!important;
+}
+
+.width-100
+{
+    width: 100%;
 }

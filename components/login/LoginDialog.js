@@ -33,7 +33,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         const { open, login, close, status } = this.props;
         const { username, password } = this.state;
         const isOpen = status.type === '' && open;
-        console.log(isOpen);
         return (
             <Dialog
                 open={ isOpen }

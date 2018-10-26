@@ -7,11 +7,11 @@ export const initialState =
     name: '',
     utoken: '',
     profile_picture: '',
-    feed: [], // populate by fetching /{user}/feed - searches for posts that contain {user_id} in the {owner}'s {followers list}
+    feed: [], // populate by fetching /{user}/feed - searches for posts that contain {user_id} in the {owner}'s {followers list}, client only
     followers: [], // list of usernames like below
     following: [],
-    posts: [], // populate by fetching /{user}/posts
-    likes: [], // list of the liked posts
+    posts: [], // populate by fetching /{user}/posts, client only
+    likes: [], // list of the liked posts/comments, client only, fetched and updated when convenient, and only to those affect items, like when getting feed or a user's profile
     books: // simple book info
     {
         reading:

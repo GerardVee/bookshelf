@@ -32,7 +32,6 @@ export default connect(mapStateToProps)(class extends Component
         return (
             <div className='bookshelf-page'>
                 <Theme>
-                    { console.log(loginOpen) }
                     <Header />
                     <Paper className='col bookshelf-login-main'>
                         <Typography variant='title' color='default' align='center' className='bookshelf-login-main-title'>bookshelf</Typography>

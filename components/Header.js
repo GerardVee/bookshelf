@@ -14,6 +14,7 @@ import Profile from '@material-ui/icons/Person';
 
 import { loadFromLocalStorage } from '../ducks/actions';
 import Snackbar from './Snackbar';
+import PostModal from './user/PostModal';
 
 const base = '/';
 
@@ -32,6 +33,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     state =
     {
         input: '',
+        posting: false,
     };
 
     componentDidMount()
@@ -45,7 +47,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     render()
     {
         const { user } = this.props;
-        const { input } = this.state;
+        const { input, posting } = this.state;
         const loggedIn = user.utoken ? (user.utoken === '' ? false : true) : false;
         return (
             <AppBar position='sticky'>
@@ -60,9 +62,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                             onKeyUp={ (e) => e.keyCode === 13 ? Router.push(base + 'search?name=' + encodeURI(input) ) : null } />
                     </div> }
                     { loggedIn && <div className='row'>
-                        <IconButton>
+                        <IconButton onClick={ () => this.setState({ posting: true }) }>
                             <NewPost />
                         </IconButton>
+                        <PostModal close={ () => this.setState({ posting: false }) } open={ posting }/>
                         <IconButton>
                             { (user.notifications.length > 0) && <Badge badgeContent={ user.notifications.length } color='secondary'>
                                 <Notifications />
