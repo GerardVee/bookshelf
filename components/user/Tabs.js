@@ -1,10 +1,13 @@
 import 'isomorphic-fetch';
 import { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
+import PostCard from '../PostCard';
 import BookCard from '../BookCard';
 
 export default class extends Component
@@ -18,7 +21,7 @@ export default class extends Component
 
     render()
     {
-        const { user } = this.props;
+        const { user, posts, setLikeOnPost } = this.props;
         const { will_read, have_read } = user.books;
         const reading = user.books.reading ? user.books.reading : { book_id: '' };
         const { value } = this.state;
@@ -31,7 +34,14 @@ export default class extends Component
                     </Tabs>
                 </Paper>
                 { value === 'posts' && <div className='bookshelf-profile-books-container'>
-                    { (user.posts ? user.posts.length === 0 : true) && <Typography variant='title' color='default'>No posts yet</Typography> }
+                    { (posts ? posts.length === 0 : true) && <Typography variant='title' color='default'>No posts yet</Typography> }
+                    { posts.length > 0 && <GridList style={{ width: '100%', height: '100%' }} cols={ 3 }>
+                        { posts.map(post => (
+                        <GridListTile key={ post.post_id } cols={ 1 }>
+                            <PostCard { ...post } setLikeOnPost={ (liked) => setLikeOnPost(post.post_id, liked) } />
+                        </GridListTile>
+                        )) }
+                    </GridList> }
                 </div> }
                 { value === 'books' && <div className='bookshelf-profile-books-container'>
                     <div className='bookshelf-profile-books-container-shelf col'>

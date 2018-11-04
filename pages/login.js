@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { Component } from 'react';
+import Router from 'next/router';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -34,6 +35,7 @@ export default connect(mapStateToProps)(class extends Component
                 <Theme>
                     <Header />
                     <Paper className='col bookshelf-login-main'>
+                        { loggedIn && <Button action={ () => Router.push('/') } /> }
                         <Typography variant='title' color='default' align='center' className='bookshelf-login-main-title'>bookshelf</Typography>
                         <div className='row align-center justify-center'>
                             <Button variant='contained' color='primary' size='large'

@@ -3,8 +3,10 @@
 .bookshelf-page
 {
     display: flex;
+    background-color: #F5F5F5;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
 }
 
 .bookshelf-toolbar
@@ -70,7 +72,9 @@
     {
         display: flex;
         align-items: center;
-    }
+        z-index: 100000!important;
+        opacity: 1!important;
+    }   
 }
 
 .bookshelf-snackbar-icon
@@ -148,7 +152,6 @@
     background-color: #FFFFFF;
     margin-top: 2em;
     padding: 0em 12em;
-    flex-grow: 1;
 }
 
 .bookshelf-profile-books-container
@@ -237,7 +240,6 @@
     background-color: #FFFFFF;
     margin-top: 2em;
     padding: 0em 12em;
-    flex-grow: 1;
 }
 
 .bookshelf-search-book-results, .bookshelf-search-user-results

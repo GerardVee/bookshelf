@@ -13,7 +13,7 @@ const mapStateToProps = (state) => (
 export default connect(mapStateToProps)(({ user }) => (
     <div className='col bookshelf-profile-main'>
         <div className='row justify-center align-center'>
-            <img className='bookshelf-profile-main-picture' src={ user.profile_picture } />
+            { user.profile_picture && <img className='bookshelf-profile-main-picture' src={ user.profile_picture } /> }
             <div className='col bookshelf-profile-main-stats'>
                 <div className='row align-center'>
                     <Typography variant='title' color='default' className='bookshelf-profile-main-username'>{ user.username }</Typography>

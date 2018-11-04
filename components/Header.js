@@ -12,9 +12,7 @@ import NewPost from '@material-ui/icons/Book';
 import Notifications from '@material-ui/icons/Notifications';
 import Profile from '@material-ui/icons/Person';
 
-import { loadFromLocalStorage } from '../ducks/actions';
-import Snackbar from './Snackbar';
-import PostModal from './user/PostModal';
+import PostModal from './PostModal';
 
 const base = '/';
 
@@ -23,27 +21,14 @@ const mapStateToProps = (state) =>
     user: state.user,
 });
 
-const mapDispatchToProps = (dispatch) =>
-({
-    loadFromLocalStorage: () => dispatch(loadFromLocalStorage())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
+export default connect(mapStateToProps)(class extends Component
 {
     state =
     {
         input: '',
         posting: false,
     };
-
-    componentDidMount()
-    {
-        if (this.props.user.utoken === '')
-        {
-            this.props.loadFromLocalStorage();
-        }
-    }
-
+    
     render()
     {
         const { user } = this.props;
@@ -78,7 +63,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                         </IconButton>
                     </div> } 
                 </Toolbar>
-                <Snackbar />
             </AppBar>
         );
     }

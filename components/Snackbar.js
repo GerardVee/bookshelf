@@ -7,6 +7,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
 import SuccessIcon from '@material-ui/icons/CheckCircle';
 import CloseIcon from '@material-ui/icons/Close';
+import Fade from '@material-ui/core/Fade';
 
 import { clearStatus } from '../ducks/actions';
 
@@ -34,7 +35,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         const open = type !== '';
         return (
             <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }} open={ open }
-                autoHideDuration={ 5000 } onClose={ () => this.handleClose() }>
+                autoHideDuration={ 2500 } onClose={ () => this.handleClose() } disableWindowBlurListener={ true }>
                     <SnackbarContent className={ type === 'ERR' ? 'bookshelf-error-snackbar' : type === 'SUC' ? 'bookshelf-success-snackbar' : type === 'WAR' ? 'bookshelf-warning-snackbar' : '' } aria-describedby='client-snackbar'
                         message=
                         {
@@ -56,6 +57,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                                     <CloseIcon />
                             </IconButton>,
                         ]}
+                        TransitionComponent={ Fade }
                         />
             </Snackbar>
         );

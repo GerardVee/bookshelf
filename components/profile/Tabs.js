@@ -2,12 +2,15 @@ import 'isomorphic-fetch';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
+import { removeReadBook, removeWillReadBook, receiveError, receiveMyPosts } from '../../ducks/actions';
+import PostCard from '../PostCard';
 import BookCard from '../BookCard';
-import { removeReadBook, removeWillReadBook } from '../../ducks/actions';
 
 const mapStateToProps = (state) => (
 {
@@ -16,8 +19,10 @@ const mapStateToProps = (state) => (
 
 const mapDispatchToProps = (dispatch) => (
 {
+    error: (msg) => dispatch(receiveError(msg)),
     deleteReadBook: (user, index) => dispatch(removeReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
     deleteWillReadBook: (user, index) => dispatch(removeWillReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
+    getPosts: (user) => dispatch(receiveMyPosts({ username: user.username, user_id: user.user_id, utoken: user.utoken })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
@@ -29,6 +34,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
 
     handleChange = (event, value) => this.setState({ value });
 
+    componentDidMount()
+    {
+        const { user } = this.props;
+        if (user.posts.length === 0)
+        {
+            this.props.getPosts(user);
+        }
+    }
+    
     render()
     {
         const { user, deleteReadBook, deleteWillReadBook } = this.props;
@@ -45,6 +59,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                 </Paper>
                 { value === 'posts' && <div className='bookshelf-profile-books-container'>
                     { (posts ? posts.length === 0 : true) && <Typography variant='title' color='default'>No posts yet</Typography> }
+                    { posts.length > 0 && <GridList style={{ width: '100%', height: '100%' }} cols={ 3 }>
+                        { posts.map(post => (
+                        <GridListTile key={ post.post_id } cols={ 1 }>
+                            <PostCard { ...post } />
+                        </GridListTile>
+                        )) }
+                    </GridList> }
                 </div> }
                 { value === 'books' && <div className='bookshelf-profile-books-container'>
                     <div className='bookshelf-profile-books-container-shelf col'>

@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
     unfollowUser: (myUser, otherUser) => dispatch(unfollowUser({ user_id: myUser.user_id, utoken: myUser.utoken, user: otherUser })),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, followUser, unfollowUser }) => (
+export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, followUser, unfollowUser, posts_length }) => (
     <div className='col bookshelf-profile-main'>
         <div className='row justify-center align-center'>
             <img className='bookshelf-profile-main-picture' src={ user.profile_picture } />
@@ -29,7 +29,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, fol
                     { myUser.followers.includes(user.username) && <Typography variant='body1' color='default'>FOLLOWS YOU</Typography> }
                 </div>
                 <div className='row'>
-                    <Typography variant='body1' color='default'><span className='slightly-bold'>{ user.posts ? user.posts.length : 0 }</span> posts</Typography>
+                    <Typography variant='body1' color='default'><span className='slightly-bold'>{ posts_length }</span> posts</Typography>
                     <Typography variant='body1' color='default'><span className='slightly-bold'>{ user.followers ? user.followers.length : 0 }</span> followers</Typography>
                     <Typography variant='body1' color='default'><span className='slightly-bold'>{ user.following ? user.following.length : 0 }</span> following</Typography>
                 </div>
