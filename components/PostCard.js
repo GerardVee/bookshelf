@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import Launch from '@material-ui/icons/Launch';
 import Like from '@material-ui/icons/FavoriteBorder';
 import Liked from '@material-ui/icons/Favorite';
 
@@ -18,13 +19,16 @@ const mapStateToProps = (state) => (
 
 const mapDispatchToProps = dispatch => (
 {
-    unlikePost: (user, post_id) => dispatch(unlikePost({ user_id: user.user_id, utoken: user.utoken, post_id })),
-    likePost: (user, post_id) => dispatch(likePost({ user_id: user.user_id, utoken: user.utoken, post_id })),
-    deletePost: (user, post_id) => dispatch(deletePost({ user_id: user.user_id, utoken: user.utoken, post_id })),
+    unlikePost: (user, post_id) => dispatch(unlikePost({ username: user.username, utoken: user.utoken, post_id })),
+    likePost: (user, post_id) => dispatch(likePost({ username: user.username, utoken: user.utoken, post_id })),
+    deletePost: (user, post_id) => dispatch(deletePost({ username: user.username, utoken: user.utoken, post_id })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(({ date, about, about_type, book_id, post_id, text, user, likes_count, liked, interactable, userstats, deletePost, unlikePost, likePost, setLikeOnPost }) => (
-    <Paper style={{ paddingBottom: '0.5em' }}>
+    <Paper style={{ paddingBottom: '0.2em', paddingTop: '0.3em' }}>
+        <div className='row' style={{ alignItems: 'center' }}>
+            <Launch className='hover' style={{ marginLeft: 'auto', marginRight: '0.5em' }} onClick={ () => Router.push(`${ base }post?id=${ post_id }`) } />        
+        </div>
         <Typography variant='body1' style={{ marginLeft: '1em' }}>{ text }</Typography>
         <div className='row' style={{ justifyContent: 'space-between' }}>
             <div className='row align-center'>

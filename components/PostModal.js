@@ -20,7 +20,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
 {
-    createPost: (user, status, about, aboutType, book_id, callback) => dispatch(createPost({ user_id: user.user_id, utoken: user.utoken, status, about, aboutType, book_id }, callback)),
+    createPost: (user, status, about, aboutType, book_id, callback) => dispatch(createPost({ username: user.username, utoken: user.utoken, status, about, aboutType, book_id }, callback)),
     error: (msg) => dispatch(receiveError(msg)),
 });
 

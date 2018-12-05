@@ -48,9 +48,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         }
         if (user.username !== '' && uuser.username !== '' && this.state.posts.length === 0)
         {
-            const postsReq = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ username: uuser.username, user_id: user.user_id, utoken: user.utoken }));
+            const postsReq = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ user: uuser.username, username: user.username, utoken: user.utoken }));
             const posts = await postsReq.json();
-            if (typeof(posts) === typeof(string))
+            if (typeof(posts) === typeof(String))
             {
                 this.props.error(posts);
                 return;
@@ -70,12 +70,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         const { posts } = this.state;
         return (
             <div className='bookshelf-page'>
-                <Theme>
-                    <Header />
-                    <UserCard user={ uuser } posts_length={ posts.length } />
-                    <Tabs user={ uuser } posts={ posts }
-                        setLikeOnPost={ (post_id, liked) => liked ? this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: true, likes_count: p.likes_count + 1 } : p) }) : this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: false, likes_count: p.likes_count - 1 } : p) }) }  />
-                </Theme>
+                <Header />
+                <UserCard user={ uuser } posts_length={ posts.length } />
+                <Tabs user={ uuser } posts={ posts }
+                    setLikeOnPost={ (post_id, liked) => liked ? this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: true, likes_count: p.likes_count + 1 } : p) }) : this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: false, likes_count: p.likes_count - 1 } : p) }) }  />
             </div>
         );
     }

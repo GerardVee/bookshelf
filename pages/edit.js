@@ -6,9 +6,7 @@ import '../styles/index.scss';
 
 export default () => (
     <div className='bookshelf-page'>
-        <Theme>
-            <Header />
-            <EditModal />
-        </Theme>
+        <Header />
+        <EditModal />
     </div>
 );

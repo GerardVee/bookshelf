@@ -16,7 +16,7 @@ const mapStateToProps = (state) =>
 const mapDispatchToProps = (dispatch) =>
 ({
     logout: (user) => dispatch(logout(user)),
-    edit: ({ user_id, utoken }, name, about) => dispatch(updateProfile({ user_id, utoken, name, about })),
+    edit: ({ username, utoken }, name, about) => dispatch(updateProfile({ username, utoken, name, about })),
     error: (msg) => dispatch(receiveError(msg)),
 });
 
@@ -69,7 +69,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                     <div className='row'>
                         <ChangeProfilePhoto />
                         <Button variant='text' color='secondary' size='small'
-                            onClick={ () => logout({ user_id: user.user_id || '', utoken: user.utoken || '' }) }>Logout</Button>
+                            onClick={ () => logout({ username: user.username || '', utoken: user.utoken || '' }) }>Logout</Button>
                     </div>
                 </div>
                 <div className='row justify-center'>

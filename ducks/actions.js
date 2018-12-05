@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 import Router from 'next/router';
 
-import { post, patch, deleteR, get } from '../utils/methods';
+import { post, patch, deleteR } from '../utils/methods';
 
 export const actionTypes =
 {
@@ -10,6 +10,7 @@ export const actionTypes =
     LOGOUT_USER: 'BOOKSHELF_LOGOUT_USER',
     RECEIVE_POSTS: 'BOOKSHELF_RECEIVE_POSTS',
     RECEIVE_FEED: 'BOOKSHELF_RECEIVE_FEED',
+    LIKE_FEED_POST: 'BOOKSHELF_LIKE_FEED_POST',
     UPDATE_USER: 'BOOKSHELF_UPDATE_USER',
     UPDATE_PROFILE_PICTURE: 'BOOKSHELF_UPDATE_PROFILE_PICTURE',
     FOLLOW_USER: 'BOOKSHELF_FOLLOW_USER',
@@ -23,6 +24,10 @@ export const actionTypes =
     LIKE_POST: 'BOOKSHELF_LIKE_POST',
     UNLIKE_POST: 'BOOKSHELF_UNLIKE_POST',
     DELETE_POST: 'BOOKSHELF_DELETE_POST',
+    RECEIVE_NOTIFICATION: 'BOOKSHELF_RECEIVE_NOTIFICATION',
+    RECEIVE_ALL_NOTIFICATIONS: 'BOOKSHELF_RECEIVE_ALL_NOTIFICATIONS',
+    MARK_NOTIFICATION_AS_READ: 'BOOKSHELF_MARK_NOTIFICATION_AS_READ',
+    DELETE_NOTIFICATION: 'BOOKSHELF_DELETE_NOTIFICATION',
     RECEIVE_ERROR: 'BOOKSHELF_RECEIVE_ERROR',
     RECEIVE_WARNING: 'BOOKSHELF_RECEIVE_WARNING',
     RECEIVE_SUCCESS: 'BOOKSHELF_RECEIVE_SUCCESS',
@@ -34,6 +39,7 @@ export const signUpUser = (userInfo) => dispatch => dispatch({ type: actionTypes
 export const logoutUser = () => dispatch => dispatch({ type: actionTypes.LOGOUT_USER });
 export const receivePosts = (posts) => dispatch => dispatch({ type: actionTypes.RECEIVE_POSTS, posts });
 export const receiveFeed = (feed) => dispatch => dispatch({ type: actionTypes.RECEIVE_FEED, feed });
+export const likeFeedPost = ({ post_id, liked }) => dispatch => dispatch({  type: actionTypes.LIKE_FEED_POST, post_id, liked });
 export const updateUser = (user) => dispatch => dispatch({ type: actionTypes.UPDATE_USER, user });
 export const updateProfilePhoto = ({ url }) => dispatch => dispatch({ type: actionTypes.UPDATE_PROFILE_PICTURE, url });
 export const followAUser = ({ user }) => dispatch => dispatch({ type: actionTypes.FOLLOW_USER, user })
@@ -47,6 +53,10 @@ export const createAPost = (post) => dispatch => dispatch({ type: actionTypes.CR
 export const likeAPost = ({ post_id }) => dispatch => dispatch({ type: actionTypes.LIKE_POST, post_id });
 export const unlikeAPost = ({ post_id }) => dispatch => dispatch({ type: actionTypes.UNLIKE_POST, post_id });
 export const deleteAPost = ({ post_id }) => dispatch => dispatch({ type: actionTypes.DELETE_POST, post_id });
+export const receiveNotification = (notification) => dispatch => dispatch({ type: actionTypes.RECEIVE_NOTIFICATION, notification });
+export const receiveAllNotifications = (notifications) => dispatch => dispatch({ type: actionTypes.RECEIVE_ALL_NOTIFICATIONS, notifications });
+export const markNotificationRead = (notification) => dispatch => dispatch({ type: actionTypes.MARK_NOTIFICATION_AS_READ, notification });
+export const removeNotification = (notification) => dispatch => dispatch({ type: actionTypes.DELETE_NOTIFICATION, notification });
 export const receiveError = (error) => dispatch => dispatch({ type: actionTypes.RECEIVE_ERROR, error });
 export const receiveWarning = (warning) => dispatch => dispatch({ type: actionTypes.RECEIVE_WARNING, warning });
 export const receiveSuccess = (success) => dispatch => dispatch({ type: actionTypes.RECEIVE_SUCCESS, success });
@@ -66,10 +76,11 @@ export const request = (dispatch, url, options, successMsg = '', errorMsg = '', 
         .then(res => res.json())
         .then(result =>
         {
-            if (result !== null && typeof result === 'object')
+            if (result !== null && (typeof result === 'object' || typeof result === 'number' ))
             {
                 if (result.errorMsg || result.code)
                 {
+                    console.log(result);
                     dispatch(receiveError(errorMsg));
                     return;
                 }
@@ -100,6 +111,7 @@ export const request = (dispatch, url, options, successMsg = '', errorMsg = '', 
             }
             else
             {
+                console.log(result);
                 if (errorMsg != '')
                 {
                     dispatch(receiveError(errorMsg));
@@ -113,9 +125,9 @@ export const request = (dispatch, url, options, successMsg = '', errorMsg = '', 
         });
 };
 
-export const createPost = ({ user_id, utoken, status, about, aboutType, book_id }, callback) => dispatch =>
+export const createPost = ({ username, utoken, status, about, aboutType, book_id }, callback) => dispatch =>
 {
-    fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/post', post({ user_id, utoken, status, about, aboutType, book_id })).
+    fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/post', post({ username, utoken, status, about, aboutType, book_id })).
         then(res =>
         {
             if (!res.ok)
@@ -155,11 +167,52 @@ export const createPost = ({ user_id, utoken, status, about, aboutType, book_id 
         });
 };
 
-export const fetchFeed = ({ username, user_id, utoken }, mPosts, profile_picture) => async dispatch =>
+export const commentOnPost = ({ username, utoken, post_id, comment}, callback) => dispatch =>
+{
+    fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/comment', post({ username, utoken, post_id, comment })).
+        then(res =>
+        {
+            if (!res.ok)
+            {
+                throw Error(res.statusText);
+            }
+            return res;
+        })
+        .then(res => res.json())
+        .then(result =>
+        {
+            if (result !== null && typeof result === 'object')
+            {
+                if (result.errorMsg)
+                {
+                    dispatch(receiveError(errorMsg));
+                    return;
+                }
+                dispatch(receiveSuccess('Comment posted'));
+                callback(result);
+            }
+            else if (typeof result === 'string')
+            {
+                dispatch(receiveError(result));
+                throw Error(result);
+            }
+            else
+            {
+                dispatch(receiveError('Could not post comment'));
+                throw Error('Could not post comment');
+            }
+        })
+        .catch((text) =>
+        {
+            console.log(text);
+        });
+};
+
+export const fetchFeed = ({ username, utoken }, profile_picture) => async dispatch =>
 {
     try
     {
-        const response = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/following', post({ username, user_id, utoken }));
+        const response = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/following', post({ username, utoken }));
         const followingFeed = await response.json();
         if (typeof followingFeed === 'object')
         {
@@ -168,14 +221,7 @@ export const fetchFeed = ({ username, user_id, utoken }, mPosts, profile_picture
                 dispatch(receiveError('Failed to fetch feed'));
                 return;
             }
-            if (mPosts.length > 0)
-            {
-                const mposts = mPosts.map(p => ({ ...p, profile_picture }));
-                const feed = mposts.concat(followingFeed).sort((a, b) => b.date - a.date);
-                dispatch(receiveFeed(feed));
-                return;
-            }
-            const res = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ username, user_id, utoken }))
+            const res = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ user: username, username, utoken }))
             const myPosts = await res.json();
             if (typeof myPosts === 'object')
             {
@@ -228,9 +274,9 @@ export const login = ({ username, password }) => dispatch =>
         'Login success', 'Login failed', loginUser, true);
 };
 
-export const logout = ({ user_id, utoken }) => dispatch =>
+export const logout = ({ username, utoken }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/logout', post({ user_id, utoken }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/logout', post({ username, utoken }),
         'Logged out', 'Logout failed', (_) =>
         {
             dispatch(logoutUser());
@@ -239,86 +285,104 @@ export const logout = ({ user_id, utoken }) => dispatch =>
         }, true, false);
 };
 
-export const getSignedUrl = ({ user_id, utoken, filename, filetype }, callback) => dispatch =>
+export const getSignedUrl = ({ username, utoken, filename, filetype }, callback) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture-signed-url', post({ user_id, utoken, filename, filetype }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture-signed-url', post({ username, utoken, filename, filetype }),
         'Uploading image', 'Image upload failed', callback, true, false);
 }
 
-export const receiveMyPosts = ({ username, user_id, utoken }) => dispatch =>
+export const receiveMyPosts = ({ username, utoken, user }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ username, user_id, utoken }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ username, utoken, user }),
         'Posts fetched', 'Posts failed to fetch', receivePosts, true);
 };
 
-export const updateProfile = ({ user_id, utoken, name, about }) => dispatch =>
+export const updateProfile = ({ username, utoken, name, about }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/update', patch({ user_id, utoken, name, about }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/update', patch({ username, utoken, name, about }),
         'Profile updated', 'Profile failed to update', updateUser, true);
 };
 
-export const updateProfilePicture = ({ user_id, utoken, profile_picture, url }) => dispatch =>
+export const updateProfilePicture = ({ username, utoken, profile_picture, url }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture', patch({ user_id, utoken, profile_picture, url }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture', patch({ username, utoken, profile_picture, url }),
         'Profile picture updated', 'Profile picture failed to update', updateProfilePhoto, true);
 };
 
-export const followUser = ({ user_id, utoken, user }) => dispatch =>
+export const followUser = ({ username, utoken, user }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/follow', post({ user_id, utoken, user }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/follow', post({ username, utoken, user }),
         'Followed ' + user, 'Could not follow ' + user, followAUser, true);
 };
 
-export const unfollowUser = ({ user_id, utoken, user }) => dispatch =>
+export const unfollowUser = ({ username, utoken, user }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/unfollow', patch({ user_id, utoken, user }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/unfollow', patch({ username, utoken, user }),
         'Unfollowed ' + user, 'Could not unfollow ' + user, unfollowAUser, true);
 };
 
-export const selectReadingBook = ({ user_id, utoken, book }) => dispatch =>
+export const selectReadingBook = ({ username, utoken, book }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/reading', patch({ user_id, utoken, book }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/reading', patch({ username, utoken, book }),
         'Reading book updated', 'Reading book update failed', selectCurrentBook, true);
 };
 
-export const selectReadBook = ({ user_id, utoken, book }) => dispatch =>
+export const selectReadBook = ({ username, utoken, book }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/have-read', post({ user_id, utoken, book }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/have-read', post({ username, utoken, book }),
         'Read book added', 'Read book addition failed', appendReadBook, true);
 };
 
-export const removeReadBook = ({ user_id, utoken, index }) => dispatch =>
+export const removeReadBook = ({ username, utoken, index }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/have-read', deleteR({ user_id, utoken, index }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/have-read', deleteR({ username, utoken, index }),
         'Read book deleted', 'Read book deletion failed', deleteReadBook, true);
 };
 
-export const selectWillReadBook = ({ user_id, utoken, book }) => dispatch =>
+export const selectWillReadBook = ({ username, utoken, book }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', post({ user_id, utoken, book }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', post({ username, utoken, book }),
         `Will read book added`, 'Will read book addition failed', appendWillReadBook, true);
 };
 
-export const removeWillReadBook = ({ user_id, utoken, index }) => dispatch =>
+export const removeWillReadBook = ({ username, utoken, index }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', deleteR({ user_id, utoken, index }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', deleteR({ username, utoken, index }),
         'Will read book deleted', 'Will read book deletion failed', deleteWillReadBook, true);
 };
 
-export const likePost = ({ user_id, utoken, post_id }) => dispatch =>
+export const likePost = ({ username, utoken, post_id }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/like', post({ user_id, utoken, post_id }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/like', post({ username, utoken, post_id }),
         'Post liked', 'Post like failed', likeAPost, true);
 };
 
-export const unlikePost = ({ user_id, utoken, post_id }) => dispatch =>
+export const unlikePost = ({ username, utoken, post_id }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/like', deleteR({ user_id, utoken, post_id }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/like', deleteR({ username, utoken, post_id }),
         'Post unliked', 'Post unlike failed', unlikeAPost, true);
 };
 
-export const deletePost = ({ user_id, utoken, post_id }) => dispatch =>
+export const deletePost = ({ username, utoken, post_id }) => dispatch =>
 {
-    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/post', deleteR({ user_id, utoken, post_id }),
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/post', deleteR({ username, utoken, post_id }),
         'Post deleted', 'Post deletion failed', deleteAPost, true);
+};
+
+export const getAllNotifications = ({ username, utoken }) => dispatch =>
+{
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/notifications', post({ username, utoken }),
+        '', '', receiveAllNotifications, true);
+};
+
+export const markNotificationAsRead = ({ username, utoken, notification }) => dispatch =>
+{
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/notification/read', patch({ username, utoken, notification }),
+        '', '', markNotificationRead, true);
+};
+
+export const deleteNotification = ({ username, utoken, notification }) => dispatch =>
+{
+    request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/notification/delete', deleteR({ username, utoken, notification }),
+        '', '', removeNotification, true);
 };

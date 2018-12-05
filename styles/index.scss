@@ -54,7 +54,7 @@
     width: 3em;
 }
 
-.bookshelf-toolbar-search-root
+.bookshelf-toolbar-search-root, .bookshelf-post-comment-root
 {
     color: inherit;
     width: 100%;
@@ -64,6 +64,15 @@
 {
     padding-left: 3em!important;
     width: 250px!important;
+}
+
+.bookshelf-post-comment-input
+{
+    font-size: 0.8em!important;
+    padding: 0!important;
+    padding-left: 0.7em!important;
+    padding-bottom: 0.5em!important;
+    width: 95%!important;
 }
 
 .bookshelf-error-snackbar, .bookshelf-success-snackbar, .bookshelf-warning-snackbar

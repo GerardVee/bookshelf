@@ -1,4 +1,3 @@
-import Theme from '../theme';
 import Header from '../components/Header';
 import ProfileCard from '../components/profile/ProfileCard';
 import Tabs from '../components/profile/Tabs';
@@ -7,10 +6,8 @@ import '../styles/index.scss';
 
 export default () => (
     <div className='bookshelf-page'>
-        <Theme>
-            <Header />
-            <ProfileCard />
-            <Tabs />
-        </Theme>
+        <Header />
+        <ProfileCard />
+        <Tabs />
     </div>
 );

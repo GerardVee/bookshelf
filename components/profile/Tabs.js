@@ -20,9 +20,9 @@ const mapStateToProps = (state) => (
 const mapDispatchToProps = (dispatch) => (
 {
     error: (msg) => dispatch(receiveError(msg)),
-    deleteReadBook: (user, index) => dispatch(removeReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
-    deleteWillReadBook: (user, index) => dispatch(removeWillReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
-    getPosts: (user) => dispatch(receiveMyPosts({ username: user.username, user_id: user.user_id, utoken: user.utoken })),
+    deleteReadBook: (user, index) => dispatch(removeReadBook({ username: user.username, utoken: user.utoken, index })),
+    deleteWillReadBook: (user, index) => dispatch(removeWillReadBook({ username: user.username, utoken: user.utoken, index })),
+    getPosts: (user) => dispatch(receiveMyPosts({ user: user.username, username: user.username, utoken: user.utoken })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(class extends Component

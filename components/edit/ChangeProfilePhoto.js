@@ -12,8 +12,8 @@ const mapStateToProps = (state) =>
 
 const mapDispatchToProps = (dispatch) =>
 ({
-    getSignedUrl: ({ user_id, utoken }, filename, filetype, callback) => dispatch(getSignedUrl({ user_id, utoken, filename, filetype}, callback)),
-    updateProfilePicture: ({ user_id, utoken, profile_picture }, url) => dispatch(updateProfilePicture({ user_id, utoken, profile_picture, url })),
+    getSignedUrl: ({ username, utoken }, filename, filetype, callback) => dispatch(getSignedUrl({ username, utoken, filename, filetype}, callback)),
+    updateProfilePicture: ({ username, utoken, profile_picture }, url) => dispatch(updateProfilePicture({ username, utoken, profile_picture, url })),
     error: (msg) => dispatch(receiveError(msg)),
 });
 
@@ -25,12 +25,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     {
         e.preventDefault();
         const { user } = this.props;
-        const { user_id } = user;
+        const { username } = user;
         const file = this.uploadInput.files[0];
         const filetype = file.type;
         const extensionCollect = extensionCapture(file.name);
         const ext = extensionCollect ? extensionCollect : 'jpg';
-        const filename = 'avatars/' + user_id + '.' + ext;
+        const filename = 'avatars/' + username + '.' + ext;
         if (!(filetype.includes('image')))
         {
             this.props.error('File is not an image');

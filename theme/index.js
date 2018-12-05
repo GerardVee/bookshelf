@@ -1,8 +1,8 @@
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 
-const theme = createMuiTheme(
+export const theme = createMuiTheme(
 {
     palette:
     {
@@ -20,9 +20,3 @@ const theme = createMuiTheme(
         },
     }
 });
-
-export default ({ children }) => (
-    <MuiThemeProvider theme={ theme }>
-        { children }
-    </MuiThemeProvider>
-);

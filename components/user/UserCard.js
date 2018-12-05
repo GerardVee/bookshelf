@@ -12,9 +12,10 @@ const mapStateToProps = (state) => (
     myUser: state.user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    followUser: (myUser, otherUser) => dispatch(followUser({ user_id: myUser.user_id, utoken: myUser.utoken, user: otherUser })),
-    unfollowUser: (myUser, otherUser) => dispatch(unfollowUser({ user_id: myUser.user_id, utoken: myUser.utoken, user: otherUser })),
+const mapDispatchToProps = (dispatch) => (
+{
+    followUser: (myUser, otherUser, ouserName) => dispatch(followUser({ username: myUser.username, utoken: myUser.utoken, user: otherUser }, ouserName)),
+    unfollowUser: (myUser, otherUser, ouserName) => dispatch(unfollowUser({ username: myUser.username, utoken: myUser.utoken, user: otherUser }, ouserName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, followUser, unfollowUser, posts_length }) => (
@@ -24,8 +25,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, fol
             <div className='col bookshelf-profile-main-stats'>
                 <div className='row align-center'>
                     <Typography variant='title' color='default' className='bookshelf-profile-main-username'>{ user.username }</Typography>
-                    { !(myUser.following.includes(user.username)) && <Button variant='contained' color='primary' size='small' onClick={ () => followUser(myUser, user.username) }>Follow</Button> }
-                    { myUser.following.includes(user.username) && <Button variant='outlined' color='default' size='small' onClick={ () => unfollowUser(myUser, user.username) }>Unfollow</Button> }
+                    { !(myUser.following.includes(user.username)) && <Button variant='contained' color='primary' size='small' onClick={ () => followUser(myUser, user.username, user.username) }>Follow</Button> }
+                    { myUser.following.includes(user.username) && <Button variant='outlined' color='default' size='small' onClick={ () => unfollowUser(myUser, user.username, user.username) }>Unfollow</Button> }
                     { myUser.followers.includes(user.username) && <Typography variant='body1' color='default'>FOLLOWS YOU</Typography> }
                 </div>
                 <div className='row'>

@@ -32,23 +32,21 @@ export default connect(mapStateToProps)(class extends Component
         const loggedIn = user.utoken !== '';
         return (
             <div className='bookshelf-page'>
-                <Theme>
-                    <Header />
-                    <Paper className='col bookshelf-login-main'>
-                        { loggedIn && <Button action={ () => Router.push('/') } /> }
-                        <Typography variant='title' color='default' align='center' className='bookshelf-login-main-title'>bookshelf</Typography>
-                        <div className='row align-center justify-center'>
-                            <Button variant='contained' color='primary' size='large'
-                                onClick={ () => this.setState({ loginOpen: true }) } disabled={ loggedIn }>Log In</Button>
-                        </div>
-                        <LoginDialog open={ loginOpen } close={ () => this.setState({ loginOpen: false }) } />
-                        <div className='row align-center justify-center'>
-                            <Button variant='text' color='primary' size='large'
-                                onClick={ () => this.setState({ signupOpen: true }) } disabled={ loggedIn }>Sign Up</Button>
-                        </div>
-                        <SignupDialog open={ signupOpen } close={ () => this.setState({ signupOpen: false }) } />
-                    </Paper>
-                </Theme>
+                <Header />
+                <Paper className='col bookshelf-login-main'>
+                    { loggedIn && <Button action={ () => Router.push('/') } /> }
+                    <Typography variant='title' color='default' align='center' className='bookshelf-login-main-title'>bookshelf</Typography>
+                    <div className='row align-center justify-center'>
+                        <Button variant='contained' color='primary' size='large'
+                            onClick={ () => this.setState({ loginOpen: true }) } disabled={ loggedIn }>Log In</Button>
+                    </div>
+                    <LoginDialog open={ loginOpen } close={ () => this.setState({ loginOpen: false }) } />
+                    <div className='row align-center justify-center'>
+                        <Button variant='text' color='primary' size='large'
+                            onClick={ () => this.setState({ signupOpen: true }) } disabled={ loggedIn }>Sign Up</Button>
+                    </div>
+                    <SignupDialog open={ signupOpen } close={ () => this.setState({ signupOpen: false }) } />
+                </Paper>
             </div>
         );
     }

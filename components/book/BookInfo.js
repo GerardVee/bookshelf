@@ -16,11 +16,11 @@ const mapStateToProps = (state) =>
 
 const mapDispatchToProps = (dispatch) =>
 ({
-    selectReadingBook: (user, book) => dispatch(selectReadingBook({ user_id: user.user_id, utoken: user.utoken, book })),
-    selectReadBook: (user, book) => dispatch(selectReadBook({ user_id: user.user_id, utoken: user.utoken, book })),
-    removeReadBook: (user, index) => dispatch(removeReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
-    selectWillReadBook: (user, book) => dispatch(selectWillReadBook({ user_id: user.user_id, utoken: user.utoken, book })),
-    removeWillReadBook: (user, index) => dispatch(removeWillReadBook({ user_id: user.user_id, utoken: user.utoken, index })),
+    selectReadingBook: (user, book) => dispatch(selectReadingBook({ username: user.username, utoken: user.utoken, book })),
+    selectReadBook: (user, book) => dispatch(selectReadBook({ username: user.username, utoken: user.utoken, book })),
+    removeReadBook: (user, index) => dispatch(removeReadBook({ username: user.username, utoken: user.utoken, index })),
+    selectWillReadBook: (user, book) => dispatch(selectWillReadBook({ username: user.username, utoken: user.utoken, book })),
+    removeWillReadBook: (user, index) => dispatch(removeWillReadBook({ username: user.username, utoken: user.utoken, index })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(class extends Component

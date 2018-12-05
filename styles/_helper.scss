@@ -22,9 +22,14 @@ body
     min-height: 100vh;
 }
 
+div[role="tooltip"]
+{
+    left: -25px!important;
+}
+
 %flex
 {
-    display: flex;
+    display: flex!important;
 }
 
 .flex
@@ -35,13 +40,13 @@ body
 .row
 {
     @extend %flex;
-    flex-direction: row;
+    flex-direction: row!important;
 }
 
 .col
 {
     @extend %flex;
-    flex-direction: column;
+    flex-direction: column!important;
 }
 
 .none
@@ -71,12 +76,20 @@ body
 
 .justify-space-between
 {
-    justify-content: 'space-between';
+    justify-content: space-between!important;
 }
 
 .align-center
 {
     align-items: center;
+}
+
+.hover
+{
+    &:hover
+    {
+        cursor: pointer;
+    }
 }
 
 .wrap
@@ -86,7 +99,12 @@ body
 
 .slightly-bold
 {
-    font-weight: 500;
+    font-weight: 500!important;
+}
+
+.bold
+{
+    font-weight: bold!important;
 }
 
 .black

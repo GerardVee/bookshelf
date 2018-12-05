@@ -22,10 +22,8 @@ export default class extends Component
         const { bookdetails: { id, volumeInfo } } = this.props;
         return (
             <div className='bookshelf-page'>
-                <Theme>
-                    <Header />
-                    <BookInfo id={ id } { ...volumeInfo } />
-                </Theme>
+                <Header />
+                <BookInfo id={ id } { ...volumeInfo } />
             </div>
         );
     }

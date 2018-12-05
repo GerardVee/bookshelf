@@ -29,10 +29,8 @@ export default class extends Component
         const { bookResults, userResults } = this.props;
         return (
             <div className='bookshelf-page'>
-                <Theme>
-                    <Header />
-                    <Tabs bookSearch={ bookResults } userSearch={ userResults } />
-                </Theme>
+                <Header />
+                <Tabs bookSearch={ bookResults } userSearch={ userResults } />
             </div>
         );
     }
