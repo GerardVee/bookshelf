@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 import { connect } from 'react-redux';
 import { Component } from 'react';
 
-import Theme from '../theme';
 import Header from '../components/Header';
 import NotFound from '../components/post/NotFound';
 import Post from '../components/post/';

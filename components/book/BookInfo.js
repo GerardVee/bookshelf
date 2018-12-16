@@ -4,6 +4,7 @@ import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import NoSsr from '@material-ui/core/NoSsr';
 
 import { selectReadingBook, selectReadBook, removeReadBook, selectWillReadBook, removeWillReadBook } from '../../ducks/actions';
 
@@ -47,17 +48,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                         <Typography variant='headline' color='default' className='black center'>{ averageRating ? averageRating + '⭐' : '' }</Typography>
                         { currentlyReading && <Typography variant='headline' color='primary' className='center'>Current Book</Typography> }
                         <div className='row'>
-                            { currentlyReading && <Button variant='contained' color='primary' disabled>Reading</Button> }
-                            { !(currentlyReading) && !(currentlyReadingNone) && <Tooltip title='This will replace your current book'>
-                                <Button variant='contained' color='primary' onClick={ () =>{ selectReadBook(myUser, myUser.books.reading); selectReadingBook(myUser, thisBook); } }>Reading</Button>
-                            </Tooltip> }
-                            { currentlyReadingNone && <Button variant='contained' color='primary' onClick={ () => selectReadingBook(myUser, thisBook) }>Reading</Button> }
-                            { currentlyReading && <Button variant='contained' color='default' disabled>Read</Button> }
-                            { hasRead && <Button variant='contained' color='secondary' onClick={ () => removeReadBook(myUser, myUser.books.have_read.findIndex(bk => bk.book_id === id)) }>Remove Read</Button> }
-                            { !(currentlyReading) && !(hasRead) && <Button variant='contained' color='default' onClick={ () => selectReadBook(myUser, thisBook) }>Read</Button> }
-                            { currentlyReading && <Button variant='contained' color='default' disabled>Will Read</Button> }
-                            { willHaveRead && <Button variant='contained' color='secondary' onClick={ () => removeWillReadBook(myUser, myUser.books.will_read.findIndex(bk => bk.book_id === id)) }>Remove Will Read</Button> }
-                            { !(currentlyReading) && !(willHaveRead) && <Button variant='contained' color='default' onClick={ () => selectWillReadBook(myUser, thisBook) }>Will Read</Button> } 
+                            <NoSsr>
+                                { currentlyReading && <Button variant='contained' color='primary' disabled>Reading</Button> }
+                                { !(currentlyReading) && !(currentlyReadingNone) && <Tooltip title='This will replace your current book'>
+                                    <Button variant='contained' color='primary' onClick={ () =>{ selectReadBook(myUser, myUser.books.reading); selectReadingBook(myUser, thisBook); } }>Reading</Button>
+                                </Tooltip> }
+                                { currentlyReadingNone && <Button variant='contained' color='primary' onClick={ () => selectReadingBook(myUser, thisBook) }>Reading</Button> }
+                                { currentlyReading && <Button variant='contained' color='default' disabled>Read</Button> }
+                                { hasRead && <Button variant='contained' color='secondary' onClick={ () => removeReadBook(myUser, myUser.books.have_read.findIndex(bk => bk.book_id === id)) }>Remove Read</Button> }
+                                { !(currentlyReading) && !(hasRead) && <Button variant='contained' color='default' onClick={ () => selectReadBook(myUser, thisBook) }>Read</Button> }
+                                { currentlyReading && <Button variant='contained' color='default' disabled>Will Read</Button> }
+                                { willHaveRead && <Button variant='contained' color='secondary' onClick={ () => removeWillReadBook(myUser, myUser.books.will_read.findIndex(bk => bk.book_id === id)) }>Remove Will Read</Button> }
+                                { !(currentlyReading) && !(willHaveRead) && <Button variant='contained' color='default' onClick={ () => selectWillReadBook(myUser, thisBook) }>Will Read</Button> }
+                            </NoSsr>
                         </div>
                     </div>
                 </div>

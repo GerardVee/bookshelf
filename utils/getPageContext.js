@@ -1,14 +1,36 @@
+import { createGenerateClassName, createMuiTheme } from '@material-ui/core/styles';
 import { SheetsRegistry } from 'jss';
-import { createGenerateClassName } from '@material-ui/core/styles';
-import { theme } from '../theme/index';
+import blue from '@material-ui/core/colors/blue';
+import red from '@material-ui/core/colors/red';
 
-const createPageContext = () => (
-{
-    theme,
-    sheetsManager: new Map(),
-    sheetsRegistry: new SheetsRegistry(),
-    generateClassName: createGenerateClassName(),
+export const theme = createMuiTheme({
+    palette:
+    {
+        primary:
+        {
+            light: blue[600],
+            main: blue[800],
+            dark: blue[900],
+        },
+        secondary:
+        {
+            light: red[500],
+            main: red[700],
+            dark: red[900],
+        },
+    },
+    typography: { useNextVariants: true, },
 });
+
+function createPageContext()
+{
+    return {
+        theme,
+        sheetsManager: new Map(),
+        sheetsRegistry: new SheetsRegistry(),
+        generateClassName: createGenerateClassName(),
+    };
+}
 
 export default function getPageContext()
 {

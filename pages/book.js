@@ -1,7 +1,6 @@
 import 'isomorphic-fetch';
 import { Component } from 'react';
 
-import Theme from '../theme';
 import Header from '../components/Header';
 import BookInfo from '../components/book/BookInfo';
 

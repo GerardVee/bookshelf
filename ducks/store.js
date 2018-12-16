@@ -35,4 +35,4 @@ export const saveState = (state) =>
 
 const persistedState = loadState();
 
-export const makeStore = () => createStore(reducer, persistedState, composeWithDevTools(applyMiddleware(thunk)));
+export const makeStore = () => process.env.NODE_ENV === 'development' ? createStore(reducer, persistedState, composeWithDevTools(applyMiddleware(thunk))) : createStore(reducer, persistedState, applyMiddleware(thunk));

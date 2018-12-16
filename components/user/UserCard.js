@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import NoSsr from '@material-ui/core/NoSsr';
 
 import { followUser, unfollowUser } from '../../ducks/actions';
 
@@ -25,8 +26,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, fol
             <div className='col bookshelf-profile-main-stats'>
                 <div className='row align-center'>
                     <Typography variant='title' color='default' className='bookshelf-profile-main-username'>{ user.username }</Typography>
-                    { !(myUser.following.includes(user.username)) && <Button variant='contained' color='primary' size='small' onClick={ () => followUser(myUser, user.username, user.username) }>Follow</Button> }
-                    { myUser.following.includes(user.username) && <Button variant='outlined' color='default' size='small' onClick={ () => unfollowUser(myUser, user.username, user.username) }>Unfollow</Button> }
+                    <NoSsr>
+                        { !(myUser.following.includes(user.username)) && <Button variant='contained' color='primary' size='small' onClick={ () => followUser(myUser, user.username, user.username) }>Follow</Button> }
+                        { myUser.following.includes(user.username) && <Button variant='outlined' color='default' size='small' onClick={ () => unfollowUser(myUser, user.username, user.username) }>Unfollow</Button> }
+                    </NoSsr>
                     { myUser.followers.includes(user.username) && <Typography variant='body1' color='default'>FOLLOWS YOU</Typography> }
                 </div>
                 <div className='row'>
@@ -36,7 +39,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ user, myUser, fol
                 </div>
                 <div className='col'>
                     <Typography variant='title' color='default' className='center'>{ user.name }</Typography>
-                    { user.books && user.books.reading && <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ user.books.reading.book_id }`) } className='center'>📖 { user.books.reading.title }</Button> }
+                    <NoSsr>
+                        { user.books && user.books.reading && <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ user.books.reading.book_id }`) } className='center'>📖 { user.books.reading.title }</Button> }
+                    </NoSsr>
                     <Typography variant='subheading' color='default' className='center'>{ user.about ? user.about : '' }</Typography>
                 </div>
             </div>

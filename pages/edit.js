@@ -1,4 +1,3 @@
-import Theme from '../theme';
 import Header from '../components/Header';
 import EditModal from '../components/edit/EditModal';
 

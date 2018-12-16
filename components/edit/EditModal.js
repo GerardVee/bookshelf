@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import NoSsr from '@material-ui/core/NoSsr';
 
 import { logout, updateProfile, receiveError } from '../../ducks/actions';
 import ChangeProfilePhoto from './ChangeProfilePhoto';
@@ -63,28 +64,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         const { logout, user } = this.props;
         const { name, about } = this.state;
         return (
-            <Paper className='col bookshelf-edit-main'>
-                <div className='row' style={{ justifyContent: 'space-between' }}>
-                    <Typography variant='display2' color='default' align='center' className='black'>Edit Profile</Typography>
-                    <div className='row'>
-                        <ChangeProfilePhoto />
-                        <Button variant='text' color='secondary' size='small'
-                            onClick={ () => logout({ username: user.username || '', utoken: user.utoken || '' }) }>Logout</Button>
+            <NoSsr>
+                <Paper className='col bookshelf-edit-main'>
+                    <div className='row' style={{ justifyContent: 'space-between' }}>
+                        <Typography variant='display2' color='default' align='center' className='black'>Edit Profile</Typography>
+                        <div className='row'>
+                            <ChangeProfilePhoto />
+                            <Button variant='text' color='secondary' size='small'
+                                onClick={ () => logout({ username: user.username || '', utoken: user.utoken || '' }) }>Logout</Button>
+                        </div>
                     </div>
-                </div>
-                <div className='row justify-center'>
-                    <TextField variant='standard' margin='dense' id='name' label='Name' type='text' value={ name }
-                        onChange={ (e) => this.setState({ name: e.target.value }) } required style={{ width: '40%' }}
-                        error={ invalidName(name) } helperText={ !(validNameLength(name)) ? nameLengthError : (!(validName(name)) ? nameValidityError : '') } />
-                </div>
-                <div className='row justify-center'>
-                    <TextField variant='standard' margin='dense' id='about' label='About' type='text' value={ about }
-                        onChange={ (e) => this.setState({ about: e.target.value }) } required style={{ width: '40%' }} />
-                </div>
-                <div className='row align-center justify-center'>
-                    <Button variant='contained' color='primary' size='large' onClick={ () => this.edit() }>Save Changes</Button>
-                </div>
-            </Paper>
+                    <div className='row justify-center'>
+                        <TextField variant='standard' margin='dense' id='name' label='Name' type='text' value={ name }
+                            onChange={ (e) => this.setState({ name: e.target.value }) } required style={{ width: '40%' }}
+                            error={ invalidName(name) } helperText={ !(validNameLength(name)) ? nameLengthError : (!(validName(name)) ? nameValidityError : '') } />
+                    </div>
+                    <div className='row justify-center'>
+                        <TextField variant='standard' margin='dense' id='about' label='About' type='text' value={ about }
+                            onChange={ (e) => this.setState({ about: e.target.value }) } required style={{ width: '40%' }} />
+                    </div>
+                    <div className='row align-center justify-center'>
+                        <Button variant='contained' color='primary' size='large' onClick={ () => this.edit() }>Save Changes</Button>
+                    </div>
+                </Paper>
+            </NoSsr>
         );
     }
 });

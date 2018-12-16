@@ -4,8 +4,8 @@ import Router from 'next/router';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import NoSsr from '@material-ui/core/NoSsr';
 
-import Theme from '../theme';
 import Header from '../components/Header';
 import LoginDialog from '../components/login/LoginDialog';
 import SignupDialog from '../components/login/SignupDialog';
@@ -37,13 +37,17 @@ export default connect(mapStateToProps)(class extends Component
                     { loggedIn && <Button action={ () => Router.push('/') } /> }
                     <Typography variant='title' color='default' align='center' className='bookshelf-login-main-title'>bookshelf</Typography>
                     <div className='row align-center justify-center'>
-                        <Button variant='contained' color='primary' size='large'
-                            onClick={ () => this.setState({ loginOpen: true }) } disabled={ loggedIn }>Log In</Button>
+                        <NoSsr>
+                            <Button variant='contained' color='primary' size='large'
+                                onClick={ () => this.setState({ loginOpen: true }) } disabled={ loggedIn }>Log In</Button>
+                        </NoSsr>
                     </div>
                     <LoginDialog open={ loginOpen } close={ () => this.setState({ loginOpen: false }) } />
                     <div className='row align-center justify-center'>
-                        <Button variant='text' color='primary' size='large'
-                            onClick={ () => this.setState({ signupOpen: true }) } disabled={ loggedIn }>Sign Up</Button>
+                        <NoSsr>
+                            <Button variant='text' color='primary' size='large'
+                                onClick={ () => this.setState({ signupOpen: true }) } disabled={ loggedIn }>Sign Up</Button>
+                        </NoSsr>
                     </div>
                     <SignupDialog open={ signupOpen } close={ () => this.setState({ signupOpen: false }) } />
                 </Paper>

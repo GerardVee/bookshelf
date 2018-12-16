@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 import { Component } from 'react';
 
 import { get } from '../utils/methods';
-import Theme from '../theme';
 import Header from '../components/Header';
 import Tabs from '../components/search/Tabs';
 

@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import NoSsr from '@material-ui/core/NoSsr';
 
 const base = '/';
 
@@ -23,12 +24,14 @@ export default class extends Component
         const { value } = this.state;
         return (
             <>
-                <Paper square className='bookshelf-search-tabs-container'>
-                    <Tabs value={ value } indicatorColor='primary' textColor='primary' onChange={ this.handleChange }>
-                        <Tab value='books' label='Books' />
-                        <Tab value='users' label='Users' />
-                    </Tabs>
-                </Paper>
+                <NoSsr>
+                    <Paper square className='bookshelf-search-tabs-container'>
+                        <Tabs value={ value } indicatorColor='primary' textColor='primary' onChange={ this.handleChange }>
+                            <Tab value='books' label='Books' />
+                            <Tab value='users' label='Users' />
+                        </Tabs>
+                    </Paper>
+                </NoSsr>
                 { value === 'users' && <div className='col bookshelf-search-user-results'>
                     { userSearch.map(({ username, profile_picture }) => (
                         <div className='row align-center bookshelf-search-user-result' onClick={ () => Router.push(`${ base }user?name=${ username }`)}>

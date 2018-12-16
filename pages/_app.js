@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import JssProvider from 'react-jss/lib/JssProvider';
+import { JssProvider } from 'react-jss';
 import withRedux from 'next-redux-wrapper';
 import throttle from 'lodash/throttle';
 
@@ -29,6 +29,11 @@ class MyApp extends App
     componentDidMount()
     {
         const { store, path } = this.props;
+        const jssStyles = document.querySelector('#jss-server-side');
+        if (jssStyles && jssStyles.parentNode)
+        {
+            jssStyles.parentNode.removeChild(jssStyles);
+        }
         if (store.getState().user.utoken === '' && path !== '/login')
         {
             Router.push('/' + 'login');
@@ -37,11 +42,6 @@ class MyApp extends App
         {
             saveState(store.getState());
         }, 1000));
-        const jssStyles = document.querySelector('#jss-server-side');
-        if (jssStyles && jssStyles.parentNode)
-        {
-            jssStyles.parentNode.removeChild(jssStyles);
-        }
     }
 
     render()

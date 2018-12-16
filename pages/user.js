@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Component } from 'react';
 import Router from 'next/router';
 
-import Theme from '../theme';
 import Header from '../components/Header';
 import UserCard from '../components/user/UserCard';
 import Tabs from '../components/user/Tabs';

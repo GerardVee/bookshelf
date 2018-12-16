@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import NoSsr from '@material-ui/core/NoSsr';
 
 const base = '/';
 
@@ -17,7 +18,9 @@ export default connect(mapStateToProps)(({ user }) => (
             <div className='col bookshelf-profile-main-stats'>
                 <div className='row align-center'>
                     <Typography variant='title' color='default' className='bookshelf-profile-main-username'>{ user.username }</Typography>
-                    <Button variant='outlined' color='default' size='small' onClick={ () => Router.push(base + 'edit') }>Edit Profile</Button>
+                    <NoSsr>
+                        <Button variant='outlined' color='default' size='small' onClick={ () => Router.push(base + 'edit') }>Edit Profile</Button>
+                    </NoSsr>
                 </div>
                 <div className='row'>
                     <Typography variant='body1' color='default'><span className='slightly-bold'>{ user.posts.length }</span> posts</Typography>
@@ -26,7 +29,9 @@ export default connect(mapStateToProps)(({ user }) => (
                 </div>
                 <div className='col'>
                     <Typography variant='title' color='default' className='center'>{ user.name }</Typography>
-                    { user.books.reading.book_id !== '' && <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ user.books.reading.book_id }`) } className='center'>📖 { user.books.reading.title }</Button> }
+                    <NoSsr>
+                        { user.books.reading.book_id !== '' && <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ user.books.reading.book_id }`) } className='center'>📖 { user.books.reading.title }</Button> }
+                    </NoSsr>
                     <Typography variant='subheading' color='default' className='center'>{ user.about }</Typography>
                 </div>
             </div>

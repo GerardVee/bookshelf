@@ -7,6 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import NoSsr from '@material-ui/core/NoSsr';
 
 import { removeReadBook, removeWillReadBook, receiveError, receiveMyPosts } from '../../ducks/actions';
 import PostCard from '../PostCard';
@@ -51,12 +52,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         const { value } = this.state;
         return (
             <>
-                <Paper square className='bookshelf-profile-tabs-container'>
-                    <Tabs value={ value } indicatorColor='primary' textColor='primary' onChange={ this.handleChange }>
-                        <Tab value='posts' label='Posts' />
-                        <Tab value='books' label='Books' />
-                    </Tabs>
-                </Paper>
+                <NoSsr>
+                    <Paper square className='bookshelf-profile-tabs-container'>
+                        <Tabs value={ value } indicatorColor='primary' textColor='primary' onChange={ this.handleChange }>
+                            <Tab value='posts' label='Posts' />
+                            <Tab value='books' label='Books' />
+                        </Tabs>
+                    </Paper>
+                </NoSsr>
                 { value === 'posts' && <div className='bookshelf-profile-books-container'>
                     { (posts ? posts.length === 0 : true) && <Typography variant='title' color='default'>No posts yet</Typography> }
                     { posts.length > 0 && <GridList style={{ width: '100%', height: '100%' }} cols={ 3 }>
