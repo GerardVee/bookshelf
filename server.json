@@ -2,6 +2,7 @@
     "apps" : [{
         "name": "my-bookshelf.co",
         "script": "yarn",
-        "args": "start"
+        "args": "start",
+        "interpreter": "/bin/bash"
     }]
 }
