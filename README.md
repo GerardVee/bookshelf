@@ -1,6 +1,6 @@
 ## Open source social app
 
-bookshelf is an open source social app that allows users to interact around books. This app was built with Next.js, Material-UI, React and Redux. It also includes the following third party APIs: AWS Cognito, Gateway, Lambda, S3 and IoT.
+bookshelf is an open source social app that allows users to interact around books. This app was built with Material-UI, Next.js, React and Redux. It also includes the following third party APIs: AWS Cognito, Gateway, Lambda, S3 and IoT.
 
 Use the app [here](https://my-bookshelf.co).
 
