@@ -25,7 +25,8 @@
   "scripts": {
     "dev": "NODE_ENV=development next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "start-server": "pm2 reload server.json"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

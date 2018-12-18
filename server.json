@@ -1,0 +1,7 @@
+{
+    "apps" : [{
+        "name": "my-bookshelf.co",
+        "script": "yarn",
+        "args": "start"
+    }]
+}
