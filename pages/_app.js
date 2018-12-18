@@ -1,16 +1,15 @@
-import React from 'react';
 import App, { Container } from 'next/app';
-import Router from 'next/router';
-import { Provider } from 'react-redux';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { makeStore, saveState } from '../ducks/store';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { JssProvider } from 'react-jss';
-import withRedux from 'next-redux-wrapper';
-import throttle from 'lodash/throttle';
-
-import { makeStore, saveState } from '../ducks/store';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { Provider } from 'react-redux';
+import React from 'react';
+import Router from 'next/router';
 import Snackbar from '../components/Snackbar';
 import getPageContext from '../utils/getPageContext';
+import throttle from 'lodash/throttle';
+import withRedux from 'next-redux-wrapper';
 
 class MyApp extends App
 {

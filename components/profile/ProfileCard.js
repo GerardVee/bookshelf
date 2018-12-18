@@ -1,15 +1,13 @@
-import { connect } from 'react-redux';
-import Router from 'next/router';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import NoSsr from '@material-ui/core/NoSsr';
+import React from 'react';
+import Router from 'next/router';
+import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
 
 const base = '/';
 
-const mapStateToProps = (state) => (
-{
-    user: state.user,
-});
+const mapStateToProps = (state) => ({ user: state.user });
 
 export default connect(mapStateToProps)(({ user }) => (
     <div className='col bookshelf-profile-main'>
@@ -30,7 +28,13 @@ export default connect(mapStateToProps)(({ user }) => (
                 <div className='col'>
                     <Typography variant='title' color='default' className='center'>{ user.name }</Typography>
                     <NoSsr>
-                        { user.books.reading.book_id !== '' && <Button variant='text' color='default' onClick={ () => Router.push(`${ base }book?id=${ user.books.reading.book_id }`) } className='center'>📖 { user.books.reading.title }</Button> }
+                        { user.books.reading.book_id !== '' && (
+                            <Button variant='text' color='default'
+                                onClick={ () => Router.push(`${ base }book?id=${ user.books.reading.book_id }`) }
+                                className='center'
+                            >
+                                📖 { user.books.reading.title }
+                            </Button> )}
                     </NoSsr>
                     <Typography variant='subheading' color='default' className='center'>{ user.about }</Typography>
                 </div>

@@ -13,8 +13,12 @@ class MyDocument extends Document
                 <Head>
                     <meta charSet='utf-8' />
                     <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no' />
+                    <meta name='description' content='Bookshelf - Share your love of books!' />
+                    <meta property='og:description' content='Bookshelf - Share your love of books!' />
+                    <meta property='og:image' content='https://s3.amazonaws.com/gerardvee/site/1545010587062.png' />
                     <meta name='theme-color' content={ pageContext.theme.palette.primary.main } />
                     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
+                    <link rel='icon' type='image/png' href='https://s3.amazonaws.com/gerardvee/site/1545010587062.png' />
                 </Head>
                 <body>
                     <Main />
@@ -27,29 +31,6 @@ class MyDocument extends Document
 
 MyDocument.getInitialProps = ctx =>
 {
-    // Resolution order
-    //
-    // On the server:
-    // 1. app.getInitialProps
-    // 2. page.getInitialProps
-    // 3. document.getInitialProps
-    // 4. app.render
-    // 5. page.render
-    // 6. document.render
-    //
-    // On the server with error:
-    // 1. document.getInitialProps
-    // 2. app.render
-    // 3. page.render
-    // 4. document.render
-    //
-    // On the client
-    // 1. app.getInitialProps
-    // 2. page.getInitialProps
-    // 3. app.render
-    // 4. page.render
-
-    // Render app and page and get the context of the page with collected side effects.
     let pageContext;
     const page = ctx.renderPage(Component =>
     {

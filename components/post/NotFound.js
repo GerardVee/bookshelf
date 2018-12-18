@@ -1,8 +1,12 @@
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
-export default () => (
+const styles = () => ({ bigHeading: { marginTop: '2em' } });
+
+export default withStyles(styles)(({ classes }) => (
     <>
-        <Typography className='center' variant='display3' color='default' style={{ marginTop: '2em' }}>Post Gone</Typography>
+        <Typography className={ 'center ' + classes.bigHeading } variant='display3' color='default'>Post Gone</Typography>
         <Typography className='center' variant='subheading' color='default'>Sorry :(</Typography>
     </>
-);
+));

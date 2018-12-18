@@ -1,26 +1,17 @@
 import 'isomorphic-fetch';
-import { connect } from 'react-redux';
-import { Component } from 'react';
-
+import '../styles/index.scss';
+import React, { Component } from 'react';
 import Header from '../components/Header';
 import NotFound from '../components/post/NotFound';
 import Post from '../components/post/';
-import { receiveError } from '../ducks/actions';
+import Title from '../components/Title';
+import { connect } from 'react-redux';
 import { post as pst } from '../utils/methods';
+import { receiveError } from '../ducks/actions';
 
-import '../styles/index.scss';
+const mapStateToProps = (state) => ({ user: state.user });
 
-const base = '/';
-
-const mapStateToProps = (state) =>(
-{
-    user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) => (
-{
-    error: (msg) => dispatch(receiveError(msg)),
-});
+const mapDispatchToProps = (dispatch) => ({ error: (msg) => dispatch(receiveError(msg)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
 {
@@ -69,8 +60,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         return (
             <div className='bookshelf-page'>
                 <Header />
-                { error && <NotFound /> }
-                { post && <Post post={ post } comments={ comments } /> }
+                { error && <><Title>Post Not Found</Title><NotFound /></> }
+                { post && <><Title>{ post.text.slice(0, 9) + '...' }</Title><Post post={ post } comments={ comments } /></> }
             </div>
         );
     }

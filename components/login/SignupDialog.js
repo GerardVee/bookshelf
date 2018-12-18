@@ -1,24 +1,17 @@
-import { connect } from 'react-redux';
-import { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-
+import TextField from '@material-ui/core/TextField';
+import { connect } from 'react-redux';
 import { signup } from '../../ducks/actions';
 
-const mapStateToProps = state => (
-{
-    status: state.status,
-});
+const mapStateToProps = state => ({ status: state.status });
 
-const mapDispatchToProps = dispatch => (
-{
-    signup: (user) => dispatch(signup(user)),
-});
+const mapDispatchToProps = dispatch => ({ signup: (user) => dispatch(signup(user)) });
 
 const validUsername = (username) => (/^[a-z0-9_]+$/i.test(username)) && (username.replace(/[^_]/g, '').length <= 1)
     && (username.replace(/[a-z_]/gi, '').length <= 3);
@@ -79,19 +72,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
             <Dialog
                 open={ isOpen }
                 onClose={ () => close() }
-                aria-labelledby='form-dialog-title'>
+                aria-labelledby='form-dialog-title'
+            >
                 <DialogTitle id='form-dialog-title'>Signup</DialogTitle>
                 <DialogContent>
                     <DialogContentText>Signing Up allows you to create your own Bookshelf account!</DialogContentText>
                     <TextField variant='outlined' margin='dense' id='name' label='Name' type='text'
                         onChange={ (e) => this.setState({ name: e.target.value }) } value={ name } required autoFocus fullWidth
-                        error={ invalidName(name) } helperText={ !(validNameLength(name)) ? nameLengthError : (!(validName(name)) ? nameValidityError : '') } />
+                        error={ invalidName(name) } helperText={ !(validNameLength(name)) ? nameLengthError : (!(validName(name)) ? nameValidityError : '') }
+                    />
                     <TextField variant='outlined' margin='dense' id='username' label='Username' type='text'
                         onChange={ (e) => this.setState({ username: e.target.value }) } value={ username } required fullWidth
-                        error={ invalidUsername(username) } helperText={ !(validUsernameLength(username)) ? usernameLengthError : (!(validUsername(username)) ? usernameValidityError : '') }/>
+                        error={ invalidUsername(username) } helperText={ !(validUsernameLength(username)) ? usernameLengthError : (!(validUsername(username)) ? usernameValidityError : '') }
+                    />
                     <TextField variant='outlined' margin='dense' id='password' label='Password' type='password'
                         onChange={ (e) => this.setState({ password: e.target.value }) } value={ password } required fullWidth
-                        error={ invalidPassword(password) } helperText={ !(validPasswordLength(password)) ? passwordLengthError : '' } />
+                        error={ invalidPassword(password) } helperText={ !(validPasswordLength(password)) ? passwordLengthError : '' }
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={ () => close() } variant='text' color='default'>Cancel</Button>

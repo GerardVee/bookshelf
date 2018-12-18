@@ -1,13 +1,13 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-
-import { userReducer } from './reducers/user';
 import { statusReducer } from './reducers/status';
+import thunk from 'redux-thunk';
+import { userReducer } from './reducers/user';
 
 const reducer = combineReducers({ user: userReducer, status: statusReducer });
 
-const loadState = () => {
+const loadState = () =>
+{
     try
     {
         const state = localStorage.getItem('bookshelf-state');
@@ -16,7 +16,8 @@ const loadState = () => {
             return undefined;
         }
         return JSON.parse(state);
-    } catch (e)
+    }
+    catch (e)
     {
         return undefined;
     }
@@ -28,8 +29,10 @@ export const saveState = (state) =>
     {
         const serialized = JSON.stringify(state);
         localStorage.setItem('bookshelf-state', serialized);
-    } catch (e)
+    }
+    catch (e)
     {
+        // do nothing
     }
 };
 

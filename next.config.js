@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = withSass({
-    webpack: (config, options) =>
+    webpack: (config) =>
     {
         /*const { isServer, dev } = options;
         config.module.rules.push({
@@ -23,7 +23,7 @@ module.exports = withSass({
                 'process.env.BASE': JSON.stringify(process.env.BASE),
                 'process.env.IDENTITY_POOL_ID': JSON.stringify(process.env.IDENTITY_POOL_ID),
                 'process.env.IOT_HOST': JSON.stringify(process.env.IOT_HOST),
-                'process.env.IOT_CLIENT': JSON.stringify(process.env.IOT_CLIENT)  
+                'process.env.IOT_CLIENT': JSON.stringify(process.env.IOT_CLIENT)
             })
         );
         config.node =
@@ -34,17 +34,19 @@ module.exports = withSass({
         return config;
     },
     optimization: process.env.NODE_ENV === 'development' ? {} : {
-        minimizer: [
-          new UglifyJsPlugin({
-            cache: true,
-            parallel: true,
-            uglifyOptions: {
-              compress: true,
-              ecma: 6,
-              mangle: true
-            },
-            sourceMap: false
-          })
+        minimizer:
+        [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                uglifyOptions:
+                {
+                    compress: true,
+                    ecma: 6,
+                    mangle: true
+                },
+                sourceMap: false
+            })
         ]
-      }
+    }
 });

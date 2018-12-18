@@ -1,34 +1,24 @@
 import 'isomorphic-fetch';
-import { connect } from 'react-redux';
-import { Component } from 'react';
-import Router from 'next/router';
-
-import Header from '../components/Header';
-import UserCard from '../components/user/UserCard';
-import Tabs from '../components/user/Tabs';
-import { receiveError } from '../ducks/actions';
-import { get, post } from '../utils/methods';
-
 import '../styles/index.scss';
+import React, { Component } from 'react';
+import { get, post } from '../utils/methods';
+import Header from '../components/Header';
+import Router from 'next/router';
+import Tabs from '../components/user/Tabs';
+import Title from '../components/Title';
+import UserCard from '../components/user/UserCard';
+import { connect } from 'react-redux';
+import { receiveError } from '../ducks/actions';
 
 const base = '/';
 
-const mapStateToProps = (state) =>(
-{
-    user: state.user,
-});
+const mapStateToProps = (state) => ({ user: state.user });
 
-const mapDispatchToProps = (dispatch) => (
-{
-    error: (msg) => dispatch(receiveError(msg)),
-});
+const mapDispatchToProps = (dispatch) => ({ error: (msg) => dispatch(receiveError(msg)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(class extends Component
 {
-    state =
-    {
-        posts: [],
-    };
+    state = { posts: [] };
 
     static async getInitialProps({ query })
     {
@@ -69,10 +59,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         const { posts } = this.state;
         return (
             <div className='bookshelf-page'>
+                <Title>{ '@' + uuser.username }</Title>
                 <Header />
                 <UserCard user={ uuser } posts_length={ posts.length } />
                 <Tabs user={ uuser } posts={ posts }
-                    setLikeOnPost={ (post_id, liked) => liked ? this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: true, likes_count: p.likes_count + 1 } : p) }) : this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: false, likes_count: p.likes_count - 1 } : p) }) }  />
+                    setLikeOnPost={ (post_id, liked) => liked ? this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: true, likes_count: p.likes_count + 1 } : p) }) : this.setState({ posts: posts.map(p => p.post_id === post_id ? { ...p, liked: false, likes_count: p.likes_count - 1 } : p) }) }
+                />
             </div>
         );
     }

@@ -1,11 +1,10 @@
 import 'isomorphic-fetch';
-import { Component } from 'react';
-
-import { get } from '../utils/methods';
+import '../styles/index.scss';
+import React, { Component } from 'react';
 import Header from '../components/Header';
 import Tabs from '../components/search/Tabs';
-
-import '../styles/index.scss';
+import Title from '../components/Title';
+import { get } from '../utils/methods';
 
 export default class extends Component
 {
@@ -18,16 +17,17 @@ export default class extends Component
         const users = await usersReq.json();
         if (typeof(users) === typeof(' '))
         {
-            return { bookResults: books.items, userResults: [] };
+            return { bookResults: books.items, userResults: [], search: name };
         }
-        return { bookResults: books.items, userResults: users };
+        return { bookResults: books.items, userResults: users, search: name };
     }
 
     render()
     {
-        const { bookResults, userResults } = this.props;
+        const { bookResults, userResults, search } = this.props;
         return (
             <div className='bookshelf-page'>
+                <Title>Search { `"${ search.slice(0, 9) }..."` }</Title>
                 <Header />
                 <Tabs bookSearch={ bookResults } userSearch={ userResults } />
             </div>

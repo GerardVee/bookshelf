@@ -1,18 +1,13 @@
+import React, { Component } from 'react';
+import { getSignedUrl, receiveError, updateProfilePicture } from '../../ducks/actions';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Component } from 'react';
-import Button from '@material-ui/core/Button';
 
-import { getSignedUrl, updateProfilePicture, receiveError } from '../../ducks/actions';
+const mapStateToProps = (state) => ({ user: state.user });
 
-const mapStateToProps = (state) =>
-({
-    user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) =>
-({
-    getSignedUrl: ({ username, utoken }, filename, filetype, callback) => dispatch(getSignedUrl({ username, utoken, filename, filetype}, callback)),
+const mapDispatchToProps = (dispatch) => ({
+    getSignedUrl: ({ username, utoken }, filename, filetype, callback) => dispatch(getSignedUrl({ username, utoken, filename, filetype }, callback)),
     updateProfilePicture: ({ username, utoken, profile_picture }, url) => dispatch(updateProfilePicture({ username, utoken, profile_picture, url })),
     error: (msg) => dispatch(receiveError(msg)),
 });

@@ -1,6 +1,4 @@
-const header = new Headers({
-    'Content-Type': 'application/json'
-});
+const header = new Headers({ 'Content-Type': 'application/json' });
 
 export const get = () => ({ method: 'GET', headers: header });
 export const post = (body) => ({ body: JSON.stringify(body), method: 'POST', headers: header });

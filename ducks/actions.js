@@ -1,7 +1,6 @@
 import 'isomorphic-fetch';
+import { deleteR, patch, post } from '../utils/methods';
 import Router from 'next/router';
-
-import { post, patch, deleteR } from '../utils/methods';
 
 export const actionTypes =
 {
@@ -42,8 +41,8 @@ export const receiveFeed = (feed) => dispatch => dispatch({ type: actionTypes.RE
 export const likeFeedPost = ({ post_id, liked }) => dispatch => dispatch({  type: actionTypes.LIKE_FEED_POST, post_id, liked });
 export const updateUser = (user) => dispatch => dispatch({ type: actionTypes.UPDATE_USER, user });
 export const updateProfilePhoto = ({ url }) => dispatch => dispatch({ type: actionTypes.UPDATE_PROFILE_PICTURE, url });
-export const followAUser = ({ user }) => dispatch => dispatch({ type: actionTypes.FOLLOW_USER, user })
-export const unfollowAUser = ({ index }) => dispatch => dispatch({ type: actionTypes.UNFOLLOW_USER, index })
+export const followAUser = ({ user }) => dispatch => dispatch({ type: actionTypes.FOLLOW_USER, user });
+export const unfollowAUser = ({ index }) => dispatch => dispatch({ type: actionTypes.UNFOLLOW_USER, index });
 export const selectCurrentBook = (book) => dispatch => dispatch({ type: actionTypes.SELECT_CURRENT_BOOK, book });
 export const appendReadBook = (book) => dispatch => dispatch({ type: actionTypes.APPEND_READ_BOOK, book });
 export const deleteReadBook = (index) => dispatch => dispatch({ type: actionTypes.DELETE_READ_BOOK, index });
@@ -80,7 +79,6 @@ export const request = (dispatch, url, options, successMsg = '', errorMsg = '', 
             {
                 if (result.errorMsg || result.code)
                 {
-                    console.log(result);
                     dispatch(receiveError(errorMsg));
                     return;
                 }
@@ -111,7 +109,6 @@ export const request = (dispatch, url, options, successMsg = '', errorMsg = '', 
             }
             else
             {
-                console.log(result);
                 if (errorMsg != '')
                 {
                     dispatch(receiveError(errorMsg));
@@ -119,9 +116,8 @@ export const request = (dispatch, url, options, successMsg = '', errorMsg = '', 
                 }
             }
         })
-        .catch((text) =>
+        .catch(() =>
         {
-            console.log(text);
         });
 };
 
@@ -143,7 +139,7 @@ export const createPost = ({ username, utoken, status, about, aboutType, book_id
             {
                 if (result.errorMsg)
                 {
-                    dispatch(receiveError(errorMsg));
+                    dispatch(receiveError(result.errorMsg));
                     return;
                 }
                 dispatch(receiveSuccess('Status posted'));
@@ -161,13 +157,12 @@ export const createPost = ({ username, utoken, status, about, aboutType, book_id
                 throw Error('Could not post status');
             }
         })
-        .catch((text) =>
+        .catch(() =>
         {
-            console.log(text);
         });
 };
 
-export const commentOnPost = ({ username, utoken, post_id, comment}, callback) => dispatch =>
+export const commentOnPost = ({ username, utoken, post_id, comment }, callback) => dispatch =>
 {
     fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/comment', post({ username, utoken, post_id, comment })).
         then(res =>
@@ -185,7 +180,7 @@ export const commentOnPost = ({ username, utoken, post_id, comment}, callback) =
             {
                 if (result.errorMsg)
                 {
-                    dispatch(receiveError(errorMsg));
+                    dispatch(receiveError(result.errorMsg));
                     return;
                 }
                 dispatch(receiveSuccess('Comment posted'));
@@ -202,9 +197,8 @@ export const commentOnPost = ({ username, utoken, post_id, comment}, callback) =
                 throw Error('Could not post comment');
             }
         })
-        .catch((text) =>
+        .catch(() =>
         {
-            console.log(text);
         });
 };
 
@@ -221,7 +215,7 @@ export const fetchFeed = ({ username, utoken }, profile_picture) => async dispat
                 dispatch(receiveError('Failed to fetch feed'));
                 return;
             }
-            const res = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ user: username, username, utoken }))
+            const res = await fetch('https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/posts/user', post({ user: username, username, utoken }));
             const myPosts = await res.json();
             if (typeof myPosts === 'object')
             {
@@ -246,19 +240,20 @@ export const fetchFeed = ({ username, utoken }, profile_picture) => async dispat
                 return;
             }
         }
-        else if (typeof result === 'string')
+        else if (typeof followingFeed === 'string')
         {
-            dispatch(receiveError(result));
-            throw Error(result);
+            dispatch(receiveError(followingFeed));
+            throw Error(followingFeed);
         }
         else
         {
             dispatch(receiveError('Could not fetch feed'));
             throw Error('Could not fetch feed');
         }
-    } catch (e)
+    }
+    catch (e)
     {
-        console.log(e);
+        // do nothing
     }
 };
 
@@ -277,7 +272,7 @@ export const login = ({ username, password }) => dispatch =>
 export const logout = ({ username, utoken }) => dispatch =>
 {
     request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/logout', post({ username, utoken }),
-        'Logged out', 'Logout failed', (_) =>
+        'Logged out', 'Logout failed', () =>
         {
             dispatch(logoutUser());
             localStorage.removeItem('bookshelf-user-state');
@@ -289,7 +284,7 @@ export const getSignedUrl = ({ username, utoken, filename, filetype }, callback)
 {
     request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/profile-picture-signed-url', post({ username, utoken, filename, filetype }),
         'Uploading image', 'Image upload failed', callback, true, false);
-}
+};
 
 export const receiveMyPosts = ({ username, utoken, user }) => dispatch =>
 {
@@ -342,7 +337,7 @@ export const removeReadBook = ({ username, utoken, index }) => dispatch =>
 export const selectWillReadBook = ({ username, utoken, book }) => dispatch =>
 {
     request(dispatch, 'https://78g40e4ff5.execute-api.us-east-1.amazonaws.com/prod/bookshelf/user/book/will-read', post({ username, utoken, book }),
-        `Will read book added`, 'Will read book addition failed', appendWillReadBook, true);
+        'Will read book added', 'Will read book addition failed', appendWillReadBook, true);
 };
 
 export const removeWillReadBook = ({ username, utoken, index }) => dispatch =>

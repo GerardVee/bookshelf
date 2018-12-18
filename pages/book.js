@@ -1,10 +1,9 @@
 import 'isomorphic-fetch';
-import { Component } from 'react';
-
-import Header from '../components/Header';
-import BookInfo from '../components/book/BookInfo';
-
 import '../styles/index.scss';
+import React, { Component } from 'react';
+import BookInfo from '../components/book/BookInfo';
+import Header from '../components/Header';
+import Title from '../components/Title';
 
 export default class extends Component
 {
@@ -21,6 +20,7 @@ export default class extends Component
         const { bookdetails: { id, volumeInfo } } = this.props;
         return (
             <div className='bookshelf-page'>
+                <Title>{ volumeInfo.title }</Title>
                 <Header />
                 <BookInfo id={ id } { ...volumeInfo } />
             </div>
