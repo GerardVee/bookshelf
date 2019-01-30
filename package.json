@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "NODE_ENV=development next",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 5000",
     "start-server": "pm2 reload server.json"
   },
   "devDependencies": {
